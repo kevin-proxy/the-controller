@@ -273,7 +273,7 @@ client.on('message', message=>{
             message.channel.send('Lol noob, you just uno reversed yourself',{files:["https://i.imgur.com/WUX7tbB.png"]})
         }
     }else if(command === 'coinflip'){
-        function doRandHT(){
+        const doRandHT = function(){
             var rand = ['Heads!','Tails!'];
             return rand[Math.floor(Math.random()*rand.length)];
         }
