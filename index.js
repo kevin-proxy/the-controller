@@ -272,18 +272,24 @@ client.on('message', message=>{
         }else{
             message.channel.send('Lol noob, you just uno reversed yourself',{files:["https://i.imgur.com/WUX7tbB.png"]})
         }
-    }else if(command === 'coinflip'){
+    }/*else if(command === 'coinflip'){
         function doRandHT(){
             var rand = ['Heads!','Tails!'];
             return rand[Math.floor(Math.random()*rand.length)];
         }
+        function doRandHTImage(){
+            let result = [];
+            var image = ['https://i.imgur.com/LH3ImeN.png','https://i.imgur.com/vn0PfEd.png']
+            return image[
+            
+        function doRandHTImage(){
         const htEmbed = new Discord.MessageEmbed();
         htEmbed.setTitle('Coinflip results!')
         htEmbed.setDescription(doRandHT())
         htEmbed.setColor(0x3366ff)
-        htEmbed.setImage('https://i.imgur.com/jKEKkzn.png')
+        htEmbed.setImage()
         
         message.channel.send(htEmbed)
-    }
+    }*/
 });
 client.login(process.env.BOT_TOKEN);
