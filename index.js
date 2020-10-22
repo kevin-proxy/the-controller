@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const prefix = '>';
-var currentDateAndTime = new Date().toLocaleString();
 
 client.once('ready', () =>{
     console.log('Ready');
@@ -163,9 +162,6 @@ client.on('message', message=>{
         }
     }else if(command === 'commands'){
 
-        var Bot = 0;
-        var Human = 1;
-        
         const commandsEmbed = new Discord.MessageEmbed()
         commandsEmbed.setTitle('All commands')
         commandsEmbed.addFields(
@@ -236,6 +232,25 @@ client.on('message', message=>{
         }
     }else if (command === 'user-info'){
 
+        const userBoolean = message.mentions.users.first()
+        const authorBoolean = message.author
+
+        var accountType = userBoolean.bot
+        var authorAccountType =  authorBoolean.bot
+
+        if(accountType == true){
+            message.content = 'Bot'
+        }
+        if(accountType == false){
+            message.content = 'Human'
+        }
+        if(authorAccountType == false){
+            message.content = 'Human'
+        }
+        if(authorAccountType == true){
+            message.content = 'Bot'
+        }
+
         if(!message.mentions.users.size){
             
         const memberAuthorInfo = message.guild.member(message.author)
@@ -247,7 +262,7 @@ client.on('message', message=>{
         myInfoEmbed.addFields(
             {name: 'Account Created At', value: `${message.author.createdAt}`, inline: true},
             {name: 'Joined Server At', value: `${memberAuthorInfo.joinedAt}`, inline: true},
-            {name: 'Account Type', value: message.author.bot, inline: true}
+            {name: 'Account Type', value: authorAccountType, inline: true}
             )
         myInfoEmbed.setFooter(`Requested by ${message.author.username} at ${Date.now}`)
         myInfoEmbed.setThumbnail(`${message.author.displayAvatarURL({dynamic: true})}`)
@@ -266,7 +281,7 @@ client.on('message', message=>{
             userInfoEmbed.addFields(
                 {name: 'Account Created At', value: `${message.mentions.users.first().createdAt}`, inline: true},
                 {name: 'Joined Server At', value: `${memberInfo.joinedAt}`, inline: true},
-                {name: 'Account Type', value: message.mentions.users.first().bot(Human, Bot), inline: true}
+                {name: 'Account Type', value: accountType, inline: true}
                 )
             userInfoEmbed.setFooter(`Requested by ${message.author.username}`)
             
