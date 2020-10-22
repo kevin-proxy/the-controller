@@ -266,6 +266,8 @@ client.on('message', message=>{
             
             message.channel.send(userInfoEmbed);
         }
+    }else if(command === 'uno-reverse'){
+        message.channel.send("Haha uno reverse",{files:["https://i.imgur.com/WUX7tbB.png"]})
     }
 });
 client.login(process.env.BOT_TOKEN);
