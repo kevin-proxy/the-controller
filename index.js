@@ -235,8 +235,6 @@ client.on('message', message=>{
         if(!message.mentions.users.size){
             
         const memberAuthorInfo = message.guild.member(message.author)
-
-        const adminRole = message.guild.role('714927110682050590')
             
         const myInfoEmbed = new Discord.MessageEmbed();
         myInfoEmbed.setTitle(message.author.username)
