@@ -232,22 +232,19 @@ client.on('message', message=>{
         }
     }else if (command === 'user-info'){
 
-        const userBoolean = message.mentions.users.first()
-        const authorBoolean = message.author
+        var userBoolean = message.mentions.users.first().bot
+        var authorBoolean = message.author.bot
 
-        var accountType = userBoolean.bot
-        var authorAccountType =  authorBoolean.bot
-
-        if(accountType == true){
+        if(userBoolean == true){
             message.content = 'Bot'
         }
-        if(accountType == false){
+        if(userBoolean == false){
             message.content = 'Human'
         }
-        if(authorAccountType == false){
+        if(userBoolean == false){
             message.content = 'Human'
         }
-        if(authorAccountType == true){
+        if(userBoolean == true){
             message.content = 'Bot'
         }
 
@@ -262,9 +259,9 @@ client.on('message', message=>{
         myInfoEmbed.addFields(
             {name: 'Account Created At', value: `${message.author.createdAt}`, inline: true},
             {name: 'Joined Server At', value: `${memberAuthorInfo.joinedAt}`, inline: true},
-            {name: 'Account Type', value: authorAccountType, inline: true}
+            {name: 'Account Type', value: authorBoolean, inline: true}
             )
-        myInfoEmbed.setFooter(`Requested by ${message.author.username} at ${Date.now}`)
+        myInfoEmbed.setFooter(`Requested by ${message.author.username}`)
         myInfoEmbed.setThumbnail(`${message.author.displayAvatarURL({dynamic: true})}`)
         
         return message.channel.send(myInfoEmbed);
@@ -281,7 +278,7 @@ client.on('message', message=>{
             userInfoEmbed.addFields(
                 {name: 'Account Created At', value: `${message.mentions.users.first().createdAt}`, inline: true},
                 {name: 'Joined Server At', value: `${memberInfo.joinedAt}`, inline: true},
-                {name: 'Account Type', value: accountType, inline: true}
+                {name: 'Account Type', value: userBoolean, inline: true}
                 )
             userInfoEmbed.setFooter(`Requested by ${message.author.username}`)
             
