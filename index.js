@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const prefix = '>';
+var currentDateAndTime = new Date().toLocaleString();
 
 client.once('ready', () =>{
     console.log('Ready');
@@ -231,7 +232,7 @@ client.on('message', message=>{
             }
         }
     }else if (command === 'user-info'){
-        
+
         if(!message.mentions.users.size){
             
         const memberAuthorInfo = message.guild.member(message.author)
@@ -264,7 +265,7 @@ client.on('message', message=>{
                 {name: 'Joined Server At', value: `${memberInfo.joinedAt}`, inline: true},
                 {name: 'Account Type', value: message.mentions.users.first().bot, inline: true}
                 )
-            userInfoEmbed.setFooter(`Requested by ${message.author.username} at ${Date.now()}`)
+            userInfoEmbed.setFooter(`Requested by ${message.author.username} at ${currentDateAndTime}`)
             
             message.channel.send(userInfoEmbed);
         }
