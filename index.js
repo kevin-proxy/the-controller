@@ -264,7 +264,7 @@ client.on('message', message=>{
                 {name: 'Joined Server At', value: `${memberInfo.joinedAt}`, inline: true},
                 {name: 'Account Type', value: message.mentions.users.first().bot, inline: true}
                 )
-            userInfoEmbed.setFooter(`Requested by ${message.author.username} at ${Date.now}`)
+            userInfoEmbed.setFooter(`Requested by ${message.author.username} at ${Date.now()}`)
             
             message.channel.send(userInfoEmbed);
         }
