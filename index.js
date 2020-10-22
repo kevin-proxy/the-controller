@@ -273,13 +273,13 @@ client.on('message', message=>{
             message.channel.send('Lol noob, you just uno reversed yourself',{files:["https://i.imgur.com/WUX7tbB.png"]})
         }
     }else if(command === 'coinflip'){
-        const doRandHT = function(){
+        function doRandHT(){
             var rand = ['Heads!','Tails!'];
             return rand[Math.floor(Math.random()*rand.length)];
         }
         const htEmbed = new Discord.MessageEmbed();
         htEmbed.setTitle('Coinflip results!')
-        htEmbed.setDescription(doRandHT)
+        htEmbed.setDescription(doRandHT())
         htEmbed.setColor(0x3366ff)
         htEmbed.setImage('https://i.imgur.com/jKEKkzn.png')
         
