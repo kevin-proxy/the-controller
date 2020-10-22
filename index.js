@@ -243,7 +243,7 @@ client.on('message', message=>{
         myInfoEmbed.addFields(
             {name: 'Account Created At', value: `${message.author.createdAt}`, inline: true},
             {name: 'Joined Server At', value: `${memberAuthorInfo.joinedAt}`, inline: true},
-            {name: 'Account Type', value: Bot[message.author.bot], inline: true}
+            {name: 'Account Type', value: message.author.bot, inline: true}
             )
         myInfoEmbed.setFooter(`Requested by ${message.author.username} at ${Date.now}`)
         myInfoEmbed.setThumbnail(`${message.author.displayAvatarURL({dynamic: true})}`)
@@ -262,7 +262,7 @@ client.on('message', message=>{
             userInfoEmbed.addFields(
                 {name: 'Account Created At', value: `${message.mentions.users.first().createdAt}`, inline: true},
                 {name: 'Joined Server At', value: `${memberInfo.joinedAt}`, inline: true},
-                {name: 'Account Type', value: Bot[message.mentions.users.first().bot], inline: true}
+                {name: 'Account Type', value: message.mentions.users.first().bot, inline: true}
                 )
             userInfoEmbed.setFooter(`Requested by ${message.author.username} at ${Date.now}`)
             
