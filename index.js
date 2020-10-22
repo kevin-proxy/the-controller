@@ -162,6 +162,9 @@ client.on('message', message=>{
             return message.reply(banArgsEmbed)
         }
     }else if(command === 'commands'){
+
+        var Bot = 0;
+        var Human = 1;
         
         const commandsEmbed = new Discord.MessageEmbed()
         commandsEmbed.setTitle('All commands')
@@ -263,9 +266,9 @@ client.on('message', message=>{
             userInfoEmbed.addFields(
                 {name: 'Account Created At', value: `${message.mentions.users.first().createdAt}`, inline: true},
                 {name: 'Joined Server At', value: `${memberInfo.joinedAt}`, inline: true},
-                {name: 'Account Type', value: message.mentions.users.first().bot, inline: true}
+                {name: 'Account Type', value: message.mentions.users.first().bot(Human, Bot), inline: true}
                 )
-            userInfoEmbed.setFooter(`Requested by ${message.author.username} at ${currentDateAndTime}`)
+            userInfoEmbed.setFooter(`Requested by ${message.author.username}`)
             
             message.channel.send(userInfoEmbed);
         }
