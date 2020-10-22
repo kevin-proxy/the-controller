@@ -192,42 +192,43 @@ client.on('message', message=>{
 
     }else if(command === 'command-info'){
         
-        const descKickEmbed = new Discord.MessageEmbed();
-        descKickEmbed.setTitle('Command Description')
-        descKickEmbed.setDescription('**Name:** Kick\n**Usage:** `>kick <user mention>`\n**Description:** A command that kicks users from the server.\n**Cooldown:** None\n**Usable in DM:** False ')
-        descKickEmbed.setColor(0x3366ff)
-        
-        const descBanEmbed = new Discord.MessageEmbed();
-        descBanEmbed.setTitle('Command Description')
-        descBanEmbed.setDescription('**Name:** Ban\n**Usage:** `>ban <user mention> <reason>`\n**Description:** A command that bans users from the server. The reason has a word limit of 100.\n**Cooldown:** None\n**Usable in DM:** False')
-        descBanEmbed.setColor(0x3366ff)
-        
-        const descArgEmbed = new Discord.MessageEmbed();
-        descArgEmbed.setTitle('Insufficient Argument')
-        descArgEmbed.setDescription('Please provide a valid command to give a description of! You can find the commands by executing `>commands`')
-        descArgEmbed.setColor(0x3366ff)
-        
-        const descPingEmbed = new Discord.MessageEmbed();
-        descPingEmbed.setTitle('Command Description')
-        descPingEmbed.setDescription('**Name:** Ping\n**Usage:** `>ping`\n**Description:** A normal, useless ping command. Displays the time in milliseconds for the bot to respond to the command.\n**Cooldown:** 5 seconds\n**Usable in DM:** True')
-        descPingEmbed.setColor(0x3366ff)
-        
-        const descPrefixEmbed = new Discord.MessageEmbed();
-        descPrefixEmbed.setTitle('Command Description')
-        descPrefixEmbed.setDescription('**Name:** Prefix\n**Usage:** `>prefix`\n**Description:** A command that displays the prefix of this bot\n**Cooldown:** 5 seconds\n**Usable in DM:** True')
-        
         if(!args[0]){
+            const descArgEmbed = new Discord.MessageEmbed();
+            descArgEmbed.setTitle('Insufficient Argument')
+            descArgEmbed.setDescription('Please provide a valid command to give a description of! You can find the commands by executing `>commands`')
+            descArgEmbed.setColor(0x3366ff)
+
             return message.channel.send(descArgEmbed);
-        }
-        
-        if(args[0] === 'kick'){
-            message.channel.send(descKickEmbed);
-        }else if(args[0] === 'ban'){
-            message.channel.send(descBanEmbed);
-        }else if(args[0] === 'prefix'){
-            message.channel.send(descPrefixEmbed);
-        }else if(args[0] === 'ping'){
-            message.channel.send(descPingEmbed);
+        }else{
+            if(args[0] === 'kick'){
+                const descKickEmbed = new Discord.MessageEmbed();
+                descKickEmbed.setTitle('Command Description')
+                descKickEmbed.setDescription('**Name:** Kick\n**Usage:** `>kick <user mention>`\n**Description:** A command that kicks users from the server.\n**Cooldown:** None\n**Usable in DM:** False ')
+                descKickEmbed.setColor(0x3366ff)
+
+                message.channel.send(descKickEmbed);
+            }else if(args[0] === 'ban'){
+                const descBanEmbed = new Discord.MessageEmbed();
+                descBanEmbed.setTitle('Command Description')
+                descBanEmbed.setDescription('**Name:** Ban\n**Usage:** `>ban <user mention> <reason>`\n**Description:** A command that bans users from the server. The reason has a word limit of 100.\n**Cooldown:** None\n**Usable in DM:** False')
+                descBanEmbed.setColor(0x3366ff)
+
+                message.channel.send(descBanEmbed);
+            }else if(args[0] === 'prefix'){
+                const descPrefixEmbed = new Discord.MessageEmbed();
+                descPrefixEmbed.setTitle('Command Description')
+                descPrefixEmbed.setDescription('**Name:** Prefix\n**Usage:** `>prefix`\n**Description:** A command that displays the prefix of this bot\n**Cooldown:** 5 seconds\n**Usable in DM:** True')
+                descPrefixEmbed.setColor(0x3366ff)
+                
+                message.channel.send(descPrefixEmbed);
+            }else if(args[0] === 'ping'){
+                const descPingEmbed = new Discord.MessageEmbed();
+                descPingEmbed.setTitle('Command Description')
+                descPingEmbed.setDescription('**Name:** Ping\n**Usage:** `>ping`\n**Description:** A normal, useless ping command. Displays the time in milliseconds for the bot to respond to the command.\n**Cooldown:** 5 seconds\n**Usable in DM:** True')
+                descPingEmbed.setColor(0x3366ff)
+                
+                message.channel.send(descPingEmbed);
+            }
         }
     }else if (command === 'user-info'){
         
@@ -241,8 +242,10 @@ client.on('message', message=>{
         myInfoEmbed.setColor(0x3366ff)
         myInfoEmbed.addFields(
             {name: 'Account Created At', value: `${message.author.createdAt}`, inline: true},
-            {name: 'Joined Server At', value: `${memberAuthorInfo.joinedAt}`, inline: true}
+            {name: 'Joined Server At', value: `${memberAuthorInfo.joinedAt}`, inline: true},
+            {name: 'Account Type', value: Bot[message.author.bot], inline: true}
             )
+        myInfoEmbed.setFooter(`Requested by ${message.author.username} at ${Date.now}`)
         myInfoEmbed.setThumbnail(`${message.author.displayAvatarURL({dynamic: true})}`)
         
         return message.channel.send(myInfoEmbed);
@@ -258,8 +261,10 @@ client.on('message', message=>{
             userInfoEmbed.setThumbnail(`${message.mentions.users.first().displayAvatarURL({dynamic: true})}`)
             userInfoEmbed.addFields(
                 {name: 'Account Created At', value: `${message.mentions.users.first().createdAt}`, inline: true},
-                {name: 'Joined Server At', value: `${memberInfo.joinedAt}`, inline: true}
+                {name: 'Joined Server At', value: `${memberInfo.joinedAt}`, inline: true},
+                {name: 'Account Type', value: Bot[message.mentions.users.first().bot], inline: true}
                 )
+            userInfoEmbed.setFooter(`Requested by ${message.author.username} at ${Date.now}`)
             
             message.channel.send(userInfoEmbed);
         }
