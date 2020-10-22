@@ -3,7 +3,7 @@ const client = new Discord.Client();
 const prefix = '>';
 
 client.once('ready', () =>{
-    console.log('Bot is online');
+    console.log('Ready');
     client.user.setActivity('>commands for info')
 })
 
