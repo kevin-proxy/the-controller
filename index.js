@@ -284,5 +284,6 @@ client.on('message', message=>{
         htEmbed.setImage('https://i.imgur.com/jKEKkzn.png')
         
         message.channel.send(htEmbed)
+    }
 });
 client.login(process.env.BOT_TOKEN);
