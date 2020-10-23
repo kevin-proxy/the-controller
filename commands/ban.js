@@ -1,7 +1,8 @@
+const Discord = require('discord.js');
 module.exports = {
   name: 'ban',
   description: 'Ban members',
-  execute(client, message, args, Discord){
+  execute(message, args){
     
     const { MessageEmbed } = module.require('discord.js');
     
