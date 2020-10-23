@@ -52,7 +52,7 @@ client.on('guildMemberAdd', member => {
   channel.send(`Welcome to the server, ${member}`);
 });
 
-client.on('guildMemberRemove', member =>{
+/*client.on('guildMemberRemove', member =>{
 	const removeMemberEmbed = new Discord.MessageEmbed();
 	removeMemberEmbed.setTitle('User left')
 	removeMemberEmbed.setDescription(`**Tag:** ${member.user.tag}\n**ID:** ${member.user.id}`)
@@ -60,5 +60,5 @@ client.on('guildMemberRemove', member =>{
 	removeMemberEmbed.setThumbnail(`${member.user.displayAvatarURL({dynamic: true})}`)
 
         member.guild.channels.cache.find('769314874970603590').send(removeMemberEmbed);
-});
+});*/
 client.login(process.env.BOT_TOKEN);
