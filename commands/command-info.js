@@ -47,4 +47,5 @@ module.exports = {
 
             message.channel.send(descArgInvalidEmbed)
         }
-  }
+  },
+};
