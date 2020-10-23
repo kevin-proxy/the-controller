@@ -1,7 +1,7 @@
 module.exports = {
   name: 'ban',
   description: 'Ban members',
-  execute(message, args, Discord){
+  execute(message, args, Discord, client){
     
     const { MessageEmbed } = module.require('discord.js');
     
