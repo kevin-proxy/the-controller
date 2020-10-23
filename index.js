@@ -39,7 +39,7 @@ client.on('guildMemberAdd', member =>{
 	const addMemberEmbed = new Discord.MessageEmbed();
 	addMemberEmbed.setTitle(`User joined`)
 	addMemberEmbed.setDescription(`**Tag:** ${member.user.tag}\n**ID:** ${member.user.id}\n**Bot Account:** ${member.user.bot}\n`)
-	addMemberEmbed.addField('Account Age:',`${Date.now - member.user.createdAt}`)
+	addMemberEmbed.addField('Account Age:',`${member.user.createdAt}`)
 	addMemberEmbed.setColor(0x79fc38)
 	addMemberEmbed.setThumbnail(`${member.user.displayAvatarURL({dynamic: true})}`)
 	
