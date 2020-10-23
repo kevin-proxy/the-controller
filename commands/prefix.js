@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 module.exports = {
   name: 'prefix',
   description: 'Displays the prefix of this bot',
-  execute(message, args, Discord){
+  execute(message, args){
     if (message.channel.type == "dm") return;
         
         const prefixEmbed = new Discord.MessageEmbed();
