@@ -200,6 +200,9 @@ client.on('message', message=>{
 
             return message.channel.send(descArgEmbed);
         }else{
+            if(args[0] !=== 'kick' || 'ban' || 'prefix' || 'ping'){
+                return message.channel.send(descArgEmbed)
+            }
             if(args[0] === 'kick'){
                 const descKickEmbed = new Discord.MessageEmbed();
                 descKickEmbed.setTitle('Command Description')
@@ -270,7 +273,7 @@ client.on('message', message=>{
         if(message.mentions.users.first()){
             message.channel.send(`Haha ${message.mentions.users.first()}, get uno reversed`,{files:["https://i.imgur.com/WUX7tbB.png"]})
         }else{
-            message.channel.send('Lol noob, you just uno reversed yourself',{files:["https://i.imgur.com/WUX7tbB.png"]})
+            message.channel.send('Dumbass, you just uno reversed yourself',{files:["https://i.imgur.com/WUX7tbB.png"]})
         }
     }/*else if(command === 'coinflip'){
         function doRandHT(){
