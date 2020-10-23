@@ -9,7 +9,7 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 
 client.once('ready', () =>{
     console.log('Ready');
-    client.user.setActivity('>commands for info')
+    client.user.setActivity('DM me for help! >help')
 })
 
 for (const file of commandFiles) {
