@@ -34,7 +34,7 @@ client.on('message', message=>{
 });
 
 client.on('guildMemberAdd', member =>{
-	member.roles.add(member.guild.roles.cache('766033819945271326'))
+	member.roles.add(member.guild.roles.cache.find('766033819945271326'))
 	
 	const addMemberEmbed = new Discord.MessageEmbed();
 	addMemberEmbed.setTitle(`User joined`)
