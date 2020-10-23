@@ -1,3 +1,4 @@
+const Discord = require('discord.js');
 module.exports = {
   name: 'purge',
   description: 'BulkDelete up to 99 messages.',
