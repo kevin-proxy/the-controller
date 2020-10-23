@@ -11,7 +11,7 @@ module.exports = {
         
         const reasonBan = args.slice(100).join(` `);
         
-        const banPermissionEmbed = new MessageEmbed();
+        const banPermissionEmbed = new Discord.MessageEmbed();
         banPermissionEmbed.setDescription('You do not have permission to ban members!')
         banPermissionEmbed.setColor(0x3366ff)
         
