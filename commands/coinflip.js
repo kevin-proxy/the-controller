@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 module.exports = {
   name: 'coinflip',
   description: 'Flips a coin and tells you the result',
-  execute(message, args, Discord){
+  execute(message, args){
     function doRandHT(){
             var rand = ['Heads!','Tails!'];
             return rand[Math.floor(Math.random()*rand.length)];
