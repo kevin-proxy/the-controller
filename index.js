@@ -22,7 +22,11 @@ client.on('message', message=>{
     
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
-    
+	
+    const errEmbed = new Discord.MessageEmbed();
+    errEmbed.setDescription('There was an error trying to execute this command!')
+    errEmbed.setColor(0x3366ff)
+	
     if(!client.commands.has(command)) return;
 
     try{
@@ -45,12 +49,6 @@ client.on('guildMemberAdd', member =>{
 	
 	member.guild.channels.cache.find(ch => ch.name === '—join-leave-log—').send(addMemberEmbed);
 });
-
-/*client.on('guildMemberAdd', member => {
-  const channel = member.guild.channels.cache.find(ch);
-  if (!channel) return;
-  channel.send(`${member} has joined`);
-});*/
 
 client.on('guildMemberRemove', member =>{
 	const removeMemberEmbed = new Discord.MessageEmbed();
