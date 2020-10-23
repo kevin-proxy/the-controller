@@ -200,7 +200,7 @@ client.on('message', message=>{
 
             return message.channel.send(descArgEmbed);
         }else{
-            if(args[0] !=== 'kick' || 'ban' || 'prefix' || 'ping'){
+            if(args[0] !== 'kick' || 'ban' || 'prefix' || 'ping'){
                 return message.channel.send(descArgEmbed)
             }
             if(args[0] === 'kick'){
