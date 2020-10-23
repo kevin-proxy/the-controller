@@ -25,30 +25,9 @@ client.on('message', message=>{
 
     if (!client.commands.has(command)) return;
 
-    if(command === 'purge'){
-	    client.commands.get('purge').execute(message,args);
-    }else if(command === 'kick'){
+    
+    if(command === 'uno-reverse'){
         
-        
-    }else if(command === 'ban'){
-        
-        
-    }else if(command === 'commands'){
-        
-        
-    }else if(command === 'prefix'){
-        
-    }else if(command === 'command-info'){
-        
-    }else if (command === 'user-info'){
-        
-    }else if(command === 'uno-reverse'){
-        if (message.channel.type == "dm") return;
-        if(message.mentions.users.first()){
-            message.channel.send(`Haha ${message.mentions.users.first()}, get uno reversed`,{files:["https://i.imgur.com/WUX7tbB.png"]})
-        }else{
-            message.channel.send('Dumbass, you just uno reversed yourself',{files:["https://i.imgur.com/WUX7tbB.png"]})
-        }
     }/*else if(command === 'coinflip'){
         function doRandHT(){
             var rand = ['Heads!','Tails!'];
