@@ -1,7 +1,7 @@
 module.exports = {
   name: 'purge',
   description: 'BulkDelete up to 99 messages.',
-  execute(message, args){
+  execute(message, args, Discord){
     if (message.channel.type == "dm"){
       return;
     }
