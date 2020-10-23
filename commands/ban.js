@@ -1,7 +1,7 @@
 module.exports = {
   name: 'ban',
   description: 'Ban members',
-  execute(message, args, Discord){
+  execute(message, args, Discord, discord.js){
     if (message.channel.type == "dm") return;
         
         const userBan = message.mentions.users.first();
