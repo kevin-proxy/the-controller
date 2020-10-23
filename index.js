@@ -24,28 +24,5 @@ client.on('message', message=>{
     const command = args.shift().toLowerCase();
 
     if (!client.commands.has(command)) return;
-
-    
-    if(command === 'uno-reverse'){
-        
-    }/*else if(command === 'coinflip'){
-        function doRandHT(){
-            var rand = ['Heads!','Tails!'];
-            return rand[Math.floor(Math.random()*rand.length)];
-        }
-        function doRandHTImage(){
-            let result = [];
-            var image = ['https://i.imgur.com/LH3ImeN.png','https://i.imgur.com/vn0PfEd.png']
-            return image[
-            
-        function doRandHTImage(){
-        const htEmbed = new Discord.MessageEmbed();
-        htEmbed.setTitle('Coinflip results!')
-        htEmbed.setDescription(doRandHT())
-        htEmbed.setColor(0x3366ff)
-        htEmbed.setImage()
-        
-        message.channel.send(htEmbed)
-    }*/
 });
 client.login(process.env.BOT_TOKEN);
