@@ -31,8 +31,8 @@ client.on('message', message=>{
 
     try{
         client.commands.get(command).execute(message, args);
-    }catch (error) {
-        console.log(error);
+    }catch (err) {
+        console.error(err);
         message.reply('There was an error trying to execute this command!').then(msg => msg.delete({timeout: 3000}))
     }
 });
