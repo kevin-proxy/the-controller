@@ -37,24 +37,7 @@ client.on('message', message=>{
         
         
     }else if(command === 'prefix'){
-        if (message.channel.type == "dm") return;
         
-        const prefixEmbed = new Discord.MessageEmbed();
-        prefixEmbed.setTitle('Prefix')
-        prefixEmbed.setDescription("This bot's prefix is `" + `${prefix}` + "`")
-        prefixEmbed.setColor(0x3366ff)
-        
-        message.channel.send(prefixEmbed);
-    }else if(command === 'ping'){
-        if (message.channel.type == "dm") return;
-            
-        const pingEmbed = new Discord.MessageEmbed();
-        pingEmbed.setTitle('Pong!')
-        pingEmbed.setDescription("Your ping is `" + `${Date.now() - message.createdTimestamp}` + "ms`")
-        pingEmbed.setColor(0x3366ff)
-            
-        message.channel.send(pingEmbed);
-
     }else if(command === 'command-info'){
         if (message.channel.type == "dm") return;
         
