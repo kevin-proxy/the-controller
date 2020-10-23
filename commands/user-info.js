@@ -1,7 +1,7 @@
 module.exports = {
   name: 'user-info',
   description: 'Displays information of a user',
-  execute(message, args){
+  execute(message, args, Discord){
     if (message.channel.type == "dm") return;
 
         if(!message.mentions.users.size){
