@@ -1,3 +1,4 @@
+const Discord = require('discord.js');
 module.exports = {
   name: 'command-info',
   description: 'Gives a description of a command',
