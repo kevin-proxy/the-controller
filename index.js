@@ -194,14 +194,17 @@ client.on('message', message=>{
         
         if(!args[0]){
             const descArgEmbed = new Discord.MessageEmbed();
-            descArgEmbed.setTitle('Insufficient Argument')
             descArgEmbed.setDescription('Please provide a valid command to give a description of! You can find the commands by executing `>commands`')
             descArgEmbed.setColor(0x3366ff)
 
             return message.channel.send(descArgEmbed);
         }else{
+            const descArgInvalidEmbed = new Discord.MessageEmbed();
+            descArgInvalidEmbed.setDescription('`' + `${args[0]}` + '` is not a valid command!')
+            descArgInvalidEmbed.setColor(0x3366ff)
+
             if(args[0] !== 'kick' || 'ban' || 'prefix' || 'ping'){
-                return message.channel.send(descArgEmbed)
+                return message.channel.send(descArgInvalidEmbed)
             }
             if(args[0] === 'kick'){
                 const descKickEmbed = new Discord.MessageEmbed();
