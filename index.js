@@ -33,7 +33,7 @@ client.on('message', message=>{
     }
 });
 
-/*client.on('guildMemberAdd', member =>{
+client.on('guildMemberAdd', member =>{
 	member.roles.add(member.guild.roles.cache.find('766033819945271326'))
 	
 	const addMemberEmbed = new Discord.MessageEmbed();
@@ -43,22 +43,22 @@ client.on('message', message=>{
 	addMemberEmbed.setColor(0x79fc38)
 	addMemberEmbed.setThumbnail(`${member.user.displayAvatarURL({dynamic: true})}`)
 	
-	member.guild.channels.cache.find('769314874970603590').send(addMemberEmbed);
-});*/
-
-client.on('guildMemberAdd', member => {
-  const channel = member.guild.channels.cache.find(769314874970603590);
-  if (!channel) return;
-  channel.send(`${member} has joined`);
+	member.guild.channels.cache.find(ch => ch.name === '—join-leave-log—').send(addMemberEmbed);
 });
 
-/*client.on('guildMemberRemove', member =>{
+/*client.on('guildMemberAdd', member => {
+  const channel = member.guild.channels.cache.find(ch);
+  if (!channel) return;
+  channel.send(`${member} has joined`);
+});*/
+
+client.on('guildMemberRemove', member =>{
 	const removeMemberEmbed = new Discord.MessageEmbed();
 	removeMemberEmbed.setTitle('User left')
 	removeMemberEmbed.setDescription(`**Tag:** ${member.user.tag}\n**ID:** ${member.user.id}`)
 	removeMemberEmbed.setColor(0xff3838)
 	removeMemberEmbed.setThumbnail(`${member.user.displayAvatarURL({dynamic: true})}`)
 
-        member.guild.channels.cache.find('769314874970603590').send(removeMemberEmbed);
-});*/
+        member.guild.channels.cache.find(ch => ch.name === '—join-leave-log—').send(removeMemberEmbed);
+});
 client.login(process.env.BOT_TOKEN);
