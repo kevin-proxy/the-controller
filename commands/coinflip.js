@@ -1,3 +1,4 @@
+const Discord = require('discord.js');
 module.exports = {
   name: 'coinflip',
   description: 'Flips a coin and tells you the result',
