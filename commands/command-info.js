@@ -1,7 +1,7 @@
 module.exports = {
   name: 'command-info',
   description: 'Gives a description of a command',
-  execute(message, args){
+  execute(message, args, Discord){
     if (message.channel.type == "dm") return;
         
         if(!args[0]){
