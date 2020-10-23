@@ -14,10 +14,10 @@ client.on('message', message=>{
     const command = args.shift().toLowerCase();
 
     if(command === 'purge'){
+        command.delete()
         
-        if (message.channel.type == "dm") {
-            
-            return message.channel.send('This command does not work in a DM!');
+        if (message.channel.type == "dm") return;
+           
         }else{
             if(!message.member.hasPermission('MANAGE_MESSAGES')){
                 
@@ -65,9 +65,7 @@ client.on('message', message=>{
         };  
     }else if(command === 'kick'){
         
-        if (message.channel.type == "dm") {
-            return message.channel.send('This command does not work in a DM!')
-        };
+        if (message.channel.type == "dm") return;
         
         const userKick = message.mentions.users.first();
         
@@ -84,7 +82,7 @@ client.on('message', message=>{
         kickArgsEmbed.setColor(0x3366ff)
         
         if(!message.member.hasPermission('KICK_MEMBERS')) {
-            return message.reply(kickPermissionEmbed);
+            return message.reply(kickPermissionEmbed).then(msg => msg.delete({timeout: 3000}));
         };
 
         if(userKick){
@@ -98,20 +96,18 @@ client.on('message', message=>{
                     kickSuccessEmbed.setDescription(`Successfully kicked ${userKick}`)
                     kickSuccessEmbed.setColor(0x3366ff)
                     
-                    message.channel.send(kickSuccessEmbed);
+                    message.channel.send(kickSuccessEmbed)
                 }).catch(err =>{
-                    message.channel.send(kickErrEmbed);
+                    message.channel.send(kickErrEmbed).then(msg => msg.delete({timeout: 3000}));
                     console.error(err);
                 });
             }
         }else{
-            return message.reply(kickArgsEmbed);
+            return message.reply(kickArgsEmbed).then(msg => msg.delete({timeout: 3000}));
         }
     }else if(command === 'ban'){
         
-        if (message.channel.type == "dm") {
-            return message.channel.send('This command does not work in a DM!')
-        };
+        if (message.channel.type == "dm") return;
         
         const userBan = message.mentions.users.first();
         
@@ -138,11 +134,11 @@ client.on('message', message=>{
         banArgsEmbed.setColor(0x3366ff)
         
         if(!message.member.hasPermission('BAN_MEMBERS')){
-           return message.reply(banPermissionEmbed)
+           return message.channel.send(banPermissionEmbed).then(msg => msg.delete({timeout: 3000}));
         };
         
         if(args[101]){
-            return message.channel.send(banLimitEmbed)
+            return message.channel.send(banLimitEmbed).then(msg => msg.delete({timeout: 3000}));
         };
         
         if(userBan){
@@ -153,7 +149,7 @@ client.on('message', message=>{
                 memberBan.ban({reason: reasonBan}).then(() =>{
                     message.channel.send(banSuccessEmbed);
                 }).catch(err =>{
-                    message.channel.send(banErrEmbed);
+                    message.channel.send(banErrEmbed).then(msg => msg.delete({timeout: 3000}));
                     console.error(err);
                 });
             }
@@ -161,6 +157,7 @@ client.on('message', message=>{
             return message.reply(banArgsEmbed)
         }
     }else if(command === 'commands'){
+        if (message.channel.type == "dm") return;
 
         const commandsEmbed = new Discord.MessageEmbed()
         commandsEmbed.setTitle('All commands')
@@ -174,6 +171,7 @@ client.on('message', message=>{
         message.channel.send(commandsEmbed);
         
     }else if(command === 'prefix'){
+        if (message.channel.type == "dm") return;
         
         const prefixEmbed = new Discord.MessageEmbed();
         prefixEmbed.setTitle('Prefix')
@@ -182,6 +180,7 @@ client.on('message', message=>{
         
         message.channel.send(prefixEmbed);
     }else if(command === 'ping'){
+        if (message.channel.type == "dm") return;
             
         const pingEmbed = new Discord.MessageEmbed();
         pingEmbed.setTitle('Pong!')
@@ -191,13 +190,14 @@ client.on('message', message=>{
         message.channel.send(pingEmbed);
 
     }else if(command === 'command-info'){
+        if (message.channel.type == "dm") return;
         
         if(!args[0]){
             const descArgEmbed = new Discord.MessageEmbed();
             descArgEmbed.setDescription('Please provide a valid command to give a description of! You can find the commands by executing `>commands`')
             descArgEmbed.setColor(0x3366ff)
 
-            return message.channel.send(descArgEmbed);
+            return message.channel.send(descArgEmbed).then(msg => msg.delete({timeout: 3000}));
         }else{
            
             if(args[0] === 'kick'){
@@ -236,6 +236,7 @@ client.on('message', message=>{
             message.channel.send(descArgInvalidEmbed)
         }
     }else if (command === 'user-info'){
+        if (message.channel.type == "dm") return;
 
         if(!message.mentions.users.size){
             
@@ -272,6 +273,7 @@ client.on('message', message=>{
             message.channel.send(userInfoEmbed);
         }
     }else if(command === 'uno-reverse'){
+        if (message.channel.type == "dm") return;
         if(message.mentions.users.first()){
             message.channel.send(`Haha ${message.mentions.users.first()}, get uno reversed`,{files:["https://i.imgur.com/WUX7tbB.png"]})
         }else{
