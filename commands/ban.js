@@ -53,7 +53,7 @@ module.exports = {
                 });
             }
         }else{
-            return message.reply(banArgsEmbed)
+            return message.reply(banArgsEmbed).then(msg => msg.delete({timeout: 3000}));
         }
   },
 };
