@@ -52,5 +52,4 @@ client.on('guildMemberRemove', member =>{
 	removeMemberEmbed.setDescription(`**Tag:** ${member.user.tag}\n**ID:** ${member.user.id}`)
 	removeMemberEmbed.setColor(0xff3838)
 	removeMemberEmbed.setThumbnail(`${member.user.displayAvatarURL({dynamic: true}}`)
-});
 client.login(process.env.BOT_TOKEN);
