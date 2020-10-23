@@ -47,7 +47,7 @@ client.on('message', message=>{
 });*/
 
 client.on('guildMemberAdd', member => {
-  const channel = member.guild.channels.cache.find('769314874970603590');
+  const channel = member.guild.channels.cache.find(769314874970603590);
   if (!channel) return;
   channel.send(`${member} has joined`);
 });
