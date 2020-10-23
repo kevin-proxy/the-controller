@@ -1,7 +1,7 @@
 module.exports = {
   name: 'kick',
   description: 'Kick members',
-  execute(message, args){
+  execute(message, args, Discord){
     if (message.channel.type == "dm") return;
         
         const userKick = message.mentions.users.first();
