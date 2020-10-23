@@ -14,7 +14,6 @@ client.on('message', message=>{
     const command = args.shift().toLowerCase();
 
     if(command === 'purge'){
-        command.delete()
         
         if (message.channel.type == "dm") return;
            
