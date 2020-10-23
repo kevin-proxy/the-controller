@@ -47,9 +47,9 @@ client.on('message', message=>{
 });*/
 
 client.on('guildMemberAdd', member => {
-  const channel = member.guild.channels.cache.find(ch => ch.name === 'join-leave-log');
+  const channel = member.guild.channels.cache.find('769314874970603590');
   if (!channel) return;
-  channel.send(`Welcome to the server, ${member}`);
+  channel.send(`${member} has joined`);
 });
 
 /*client.on('guildMemberRemove', member =>{
