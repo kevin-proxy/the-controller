@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 module.exports = {
   name: 'purge',
   description: 'BulkDelete up to 99 messages.',
-  execute(message, args, Discord){
+  execute(message, args){
     if (message.channel.type == "dm"){
       return;
     }
