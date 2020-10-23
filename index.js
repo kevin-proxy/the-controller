@@ -53,6 +53,6 @@ client.on('guildMemberRemove', member =>{
 	removeMemberEmbed.setColor(0xff3838)
 	removeMemberEmbed.setThumbnail(`${member.user.displayAvatarURL({dynamic: true})}`)
 
-        member.guild.channels.get.find('769314874970603590').send(addMemberEmbed);
+        member.guild.channels.get.find('769314874970603590').send(removeMemberEmbed);
 });
 client.login(process.env.BOT_TOKEN);
