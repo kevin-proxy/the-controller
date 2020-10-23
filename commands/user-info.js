@@ -1,3 +1,4 @@
+const Discord = require('discord.js');
 module.exports = {
   name: 'user-info',
   description: 'Displays information of a user',
