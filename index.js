@@ -43,7 +43,7 @@ client.on('guildMemberAdd', member =>{
 	addMemberEmbed.setColor(0x79fc38)
 	addMemberEmbed.setThumbnail(`${member.user.displayAvatarURL({dynamic: true})}`)
 	
-	member.guild.channels.get('769314874970603590').send(addMemberEmbed);
+	member.guild.channels.get.find('769314874970603590').send(addMemberEmbed);
 });
 
 client.on('guildMemberRemove', member =>{
@@ -53,6 +53,6 @@ client.on('guildMemberRemove', member =>{
 	removeMemberEmbed.setColor(0xff3838)
 	removeMemberEmbed.setThumbnail(`${member.user.displayAvatarURL({dynamic: true})}`)
 
-        member.guild.channels.get('769314874970603590').send(addMemberEmbed);
+        member.guild.channels.get.find('769314874970603590').send(addMemberEmbed);
 });
 client.login(process.env.BOT_TOKEN);
