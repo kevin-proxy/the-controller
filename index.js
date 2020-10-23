@@ -32,4 +32,25 @@ client.on('message', message=>{
         message.reply('There was an error trying to execute this command!').then(msg => msg.delete({timeout: 3000}))
     }
 });
+
+client.on('guildMemberAdd', member =>{
+	member.roles.add(member.guild.roles.cache('766033819945271326'))
+	
+	const addMemberEmbed = new Discord.MessageEmbed();
+	addMemberEmbed.setTitle(`User joined`)
+	addMemberEmbed.setDescription(`**Tag:** ${member.user.tag}\n**ID:** ${member.user.id}\n**Bot Account:** ${member.user.bot}\n`)
+	addMemberEmbed.addField('Account Age:',`${Date.now - member.user.createdAt}`)
+	addMemberEmbed.setColor(0x79fc38)
+	addMemberEmbed.setThumbnail(`${member.user.displayAvatarURL({dynamic: true})}`)
+	
+	member.guild.channels.get('769314874970603590').send(addMemberEmbed);
+});
+
+client.on('guildMemberRemove', member =>{
+	const removeMemberEmbed = new Discord.MessageEmbed();
+	removeMemberEmbed.setTitle('User left')
+	removeMemberEmbed.setDescription(`**Tag:** ${member.user.tag}\n**ID:** ${member.user.id}`)
+	removeMemberEmbed.setColor(0xff3838)
+	removeMemberEmbed.setThumbnail(`${member.user.displayAvatarURL({dynamic: true}}`)
+});
 client.login(process.env.BOT_TOKEN);
