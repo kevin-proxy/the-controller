@@ -1,3 +1,4 @@
+const Discord = require('discord.js');
 module.exports= {
   name: 'commands',
   description: 'Lists all the possible commands with this bot',
