@@ -34,7 +34,8 @@ client.on('message', message=>{
 });
 
 client.on('guildMemberAdd', member =>{
-	member.roles.add(member.guild.roles.cache.find(i => i.name === "2000's Teen"))
+        let addRole = member.guild.roles.find(i => i.name === "2000's Teen");
+	member.roles.add(addRole)
 	
 	const addMemberEmbed = new Discord.MessageEmbed();
 	addMemberEmbed.setTitle(`User joined`)
