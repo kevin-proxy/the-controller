@@ -22,6 +22,14 @@ client.on('message', message=>{
     
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
-	
+    
+    if(!client.commands.has(command)) return;
+
+    try{
+        client.commands.get(command).execute(message, args);
+    }catch (error) {
+        console.log(error);
+        message.reply('There was an error trying to execute this command!').then(msg => msg.delete({timeout: 3000}))
+    }
 });
 client.login(process.env.BOT_TOKEN);

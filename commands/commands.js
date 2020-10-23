@@ -1,7 +1,7 @@
 module.exports= {
   name: 'commands',
   description: 'Lists all the possible commands with this bot',
-  execute(message,args){
+  execute(message, args){
     if (message.channel.type == "dm") return;
 
         const commandsEmbed = new Discord.MessageEmbed()
