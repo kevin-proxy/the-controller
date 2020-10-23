@@ -33,7 +33,7 @@ client.on('message', message=>{
     }
 });
 
-client.on('guildMemberAdd', member =>{
+/*client.on('guildMemberAdd', member =>{
 	member.roles.add(member.guild.roles.cache.find('766033819945271326'))
 	
 	const addMemberEmbed = new Discord.MessageEmbed();
@@ -44,6 +44,12 @@ client.on('guildMemberAdd', member =>{
 	addMemberEmbed.setThumbnail(`${member.user.displayAvatarURL({dynamic: true})}`)
 	
 	member.guild.channels.cache.find('769314874970603590').send(addMemberEmbed);
+});*/
+
+client.on('guildMemberAdd', member => {
+  const channel = member.guild.channels.cache.find(ch => ch.name === 'join-leave-log');
+  if (!channel) return;
+  channel.send(`Welcome to the server, ${member}`);
 });
 
 client.on('guildMemberRemove', member =>{
