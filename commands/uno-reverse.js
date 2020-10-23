@@ -1,8 +1,7 @@
-const Discord = require('discord.js');
 module.exports = {
   name: 'uno-reverse',
   description: 'Lol get uno reversed',
-  execute(message, args, Discord){
+  execute(message, args){
     if (message.channel.type == "dm") return;
         if(message.mentions.users.first()){
             message.channel.send(`Haha ${message.mentions.users.first()}, get uno reversed`,{files:["https://i.imgur.com/WUX7tbB.png"]})
