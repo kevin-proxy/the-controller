@@ -33,7 +33,7 @@ client.on('message', message=>{
         client.commands.get(command).execute(message, args);
     }catch (err) {
         console.error(err);
-        message.reply('There was an error trying to execute this command!').then(msg => msg.delete({timeout: 3000}))
+        message.channel.send(errEmbed).then(msg => msg.delete({timeout: 3000}))
     }
 });
 
