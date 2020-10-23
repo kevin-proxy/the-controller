@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 module.exports= {
   name: 'help',
   description: 'Lists all the possible commands with this bot',
-  execute(message, args, Discord){
+  execute(message, args){
     if (message.channel.type == "dm") return;
 
         const commandsEmbed = new Discord.MessageEmbed()
