@@ -1,3 +1,4 @@
+const Discord = require('discord.js');
 module.exports = {
   name: 'prefix',
   description: 'Displays the prefix of this bot',
