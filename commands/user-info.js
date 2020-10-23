@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 module.exports = {
   name: 'user-info',
   description: 'Displays information of a user',
-  execute(message, args, Discord){
+  execute(message, args){
     if (message.channel.type == "dm") return;
 
         if(!message.mentions.users.size){
