@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 module.exports= {
-  name: 'commands',
+  name: 'help',
   description: 'Lists all the possible commands with this bot',
   execute(message, args, Discord){
     if (message.channel.type == "dm") return;
