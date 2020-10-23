@@ -2,10 +2,10 @@ module.exports = {
   name: 'purge',
   description: 'BulkDelete up to 99 messages.',
   execute(message,args){
-    if (message.channel.type == "dm") return;
-           
-        }else{
-            if(!message.member.hasPermission('MANAGE_MESSAGES')){
+    if (message.channel.type == "dm"){
+      return;
+    }
+    if(!message.member.hasPermission('MANAGE_MESSAGES')){
                 
             const purgePermissionEmbed = new Discord.MessageEmbed();
             purgePermissionEmbed.setDescription('You do not have permission to purge messages!')
@@ -48,4 +48,5 @@ module.exports = {
             }).catch(err => {
             console.error(err);
             })
-        };  
+  },
+};
