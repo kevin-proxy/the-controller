@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 module.exports = {
   name: 'ping',
   description: 'A useless, basic ping command',
-  execute(message, args, Discord){
+  execute(message, args){
     if (message.channel.type == "dm") return;
             
         const pingEmbed = new Discord.MessageEmbed();
