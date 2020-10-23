@@ -2,13 +2,16 @@ module.exports = {
   name: 'ban',
   description: 'Ban members',
   execute(message, args, Discord){
+    
+    const { MessageEmbed } = module.require('discord.js');
+    
     if (message.channel.type == "dm") return;
         
         const userBan = message.mentions.users.first();
         
         const reasonBan = args.slice(100).join(` `);
         
-        const banPermissionEmbed = new Discord.MessageEmbed();
+        const banPermissionEmbed = new MessageEmbed();
         banPermissionEmbed.setDescription('You do not have permission to ban members!')
         banPermissionEmbed.setColor(0x3366ff)
         
