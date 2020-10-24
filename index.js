@@ -7,11 +7,9 @@ client.commands = new Discord.Collection();
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
-exports.prefix = prefix;
-
 client.once('ready', () =>{
     console.log('Ready');
-    client.user.setActivity('DM me for help! >help')
+    client.user.setActivity('>help for info')
 })
 
 for (const file of commandFiles) {
@@ -61,4 +59,6 @@ client.on('guildMemberRemove', member =>{
 
         member.guild.channels.cache.find(ch => ch.name === '—join-leave-log—').send(removeMemberEmbed);
 });
-client.login(process.env.BOT_TOKEN);
+client.login('NjgzMDM1NzE1ODMxMjAxODI1.XllslA.W74u1ARc-c4efhpJyNVT42GYCDg');
+
+//process.env.BOT_TOKEN

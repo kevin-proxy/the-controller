@@ -9,6 +9,7 @@
   "author": "Proxy (Kevin)",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^12.4.0"
+    "discord.js": "^12.4.0",
+    "ms": "^2.1.2"
   }
 }

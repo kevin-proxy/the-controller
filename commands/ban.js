@@ -4,11 +4,9 @@ module.exports = {
   description: 'Ban members',
   execute(message, args){
     
-    const { MessageEmbed } = module.require('discord.js');
-    
     if (message.channel.type == "dm") return;
         
-        const userBan = message.mentions.users.first();
+        const user = message.mentions.users.first();
         
         const reasonBan = args.slice(100).join(` `);
         
@@ -21,7 +19,7 @@ module.exports = {
         banLimitEmbed.setColor(0x3366ff)
         
         const banSuccessEmbed = new Discord.MessageEmbed();
-        banSuccessEmbed.setDescription(`Successfully banned ${userBan}`)
+        banSuccessEmbed.setDescription(`Successfully banned ${user}`)
         banSuccessEmbed.setColor(0x3366ff)
         
         const banErrEmbed = new Discord.MessageEmbed();
@@ -40,9 +38,9 @@ module.exports = {
             return message.channel.send(banLimitEmbed).then(msg => msg.delete({timeout: 3000}));
         };
         
-        if(userBan){
+        if(user){
             
-            const memberBan = message.guild.member(userBan);
+            const memberBan = message.guild.member(user);
 
             if(memberBan){
                 memberBan.ban({reason: reasonBan}).then(() =>{

@@ -1,5 +1,4 @@
 const Discord = require('discord.js')
-const prefix = require('./index.js')
 module.exports = {
   name: 'prefix',
   description: 'Displays the prefix of this bot',
@@ -8,7 +7,7 @@ module.exports = {
         
         const prefixEmbed = new Discord.MessageEmbed();
         prefixEmbed.setTitle('Prefix')
-        prefixEmbed.setDescription("This bot's prefix is `" + `${prefix}` + "`")
+        prefixEmbed.setDescription("This bot's prefix is `arcade`")
         prefixEmbed.setColor(0x3366ff)
         
         message.channel.send(prefixEmbed);
