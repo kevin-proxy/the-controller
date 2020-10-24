@@ -7,6 +7,8 @@ client.commands = new Discord.Collection();
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
+module.exports = (Discord, prefix);
+
 client.once('ready', () =>{
     console.log('Ready');
     client.user.setActivity('DM me for help! >help')
