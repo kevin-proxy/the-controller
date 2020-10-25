@@ -4,16 +4,15 @@ module.exports = {
     description: 'A command that mutes people',
     execute(message, args){
 
-        const ms = require('ms');
         const user = message.mentions.users.first();
         const mutedrole = message.guild.roles.cache.find(r => r.name === "Muted");
         const member = message.guild.member(user)
         const time = args[1];
         const reason = args[2];
 
-        const muteSuccess = new Discord.MessageEmbed();
-        muteSuccess.setDescription(`Successfully muted ${user}`)
-        muteSuccess.setColor(0x3366ff)
+        const muteSuccessNoTime = new Discord.MessageEmbed();
+        muteSuccessNoTime.setDescription(`Successfully muted ${user}`)
+        muteSuccessNoTime.setColor(0x3366ff)
 
         const errorEmbed = new Discord.MessageEmbed();
         errorEmbed.setDescription('An error occured, please try again later...')
@@ -35,6 +34,10 @@ module.exports = {
         unmuteEmbed.setDescription(`${user} has been unmuted from their timed mute.`)
         unmuteEmbed.setColor(0x3366ff)
 
+        const alreadyMutedEmbed = new Discord.MessageEmbed();
+        alreadyMutedEmbed.setDescription('That user is already muted!')
+        alreadyMutedEmbed.setColor(0x3366ff)
+
         if (message.channel.type == "dm") return;
 
         if(!message.member.hasPermission('MUTE_MEMBERS')){
@@ -42,22 +45,35 @@ module.exports = {
         }
 
         if(user){
-            if(!time){
-                return message.channel.send(timeEmbed).then(msg => msg.delete({timeout: 3000}));
+            if(!member.roles.cache.has('766778409342337084')){
+                if(!time){
+                    member.roles.add('766778409342337084').then(() =>{
+                        message.channel.send(muteSuccessNoTime).then(msg => msg.delete({timeout: 3000}));
+                    }).catch(err =>{
+                        message.channel.send(errorEmbed).then(msg => msg.delete({timeout: 3000}));
+                        console.error(err);
+                    });
+                }else{
+                    let ms = require('ms');
+                    const muteSuccess = new Discord.MessageEmbed();
+                    muteSuccess.setDescription(`Successfully muted ${user} for ${ms(ms(time))}`)
+                    muteSuccess.setColor(0x3366ff)
+                    member.roles.add('766778409342337084').then(() =>{
+                        message.channel.send(muteSuccess).then(msg => msg.delete({timeout: 3000}));
+                        setTimeout(function() {
+                            member.roles.remove(mutedrole);
+                            message.channel.send(unmuteEmbed).then(msg => msg.delete({timeout: 3000}));
+                        }, ms(time));
+                    }).catch(err =>{
+                        message.channel.send(errorEmbed).then(msg => msg.delete({timeout: 3000}));
+                        console.error(err);
+                    });
+                }
+            }else{
+                message.channel.send(alreadyMutedEmbed).then(msg => msg.delete({timeout: 3000}));
             }
-
-            member.roles.add('766778409342337084').then(() =>{
-                setTimeout(function() {
-                    member.roles.remove(mutedrole);
-                    message.channel.send(unmuteEmbed).then(msg => msg.delete({timeout: 3000}));
-                }, ms(time));
-                message.channel.send(muteSuccess).then(msg => msg.delete({timeout: 3000}));
-            }).catch(err =>{
-                message.channel.send(errorEmbed).then(msg => msg.delete({timeout: 3000}));
-                console.error(err);
-            });
         }else{
-            message.channel.send(argsEmbed);
+            message.channel.send(argsEmbed).then(msg => msg.delete({timeout: 3000}));
         }
     },
 };

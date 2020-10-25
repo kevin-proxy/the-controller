@@ -9,7 +9,7 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 
 client.once('ready', () =>{
     console.log('Ready');
-    client.user.setActivity('>help for info')
+    client.user.setActivity('arcade help')
 })
 
 for (const file of commandFiles) {
@@ -45,7 +45,8 @@ client.on('guildMemberAdd', member =>{
 	addMemberEmbed.setDescription(`**Tag:** ${member.user.tag}\n**ID:** ${member.user.id}\n**Bot Account:** ${member.user.bot}\n`)
 	addMemberEmbed.addField('Account created at:',`${member.user.createdAt}`)
 	addMemberEmbed.setColor(0x79fc38)
-	addMemberEmbed.setThumbnail(`${member.user.displayAvatarURL({dynamic: true})}`)
+    addMemberEmbed.setThumbnail(`${member.user.displayAvatarURL({dynamic: true})}`)
+    addMemberEmbed.setFooter(`Current member count: ${member.guild.memberCount}`)
 	
 	member.guild.channels.cache.find(ch => ch.name === '—join-leave-log—').send(addMemberEmbed);
 });
@@ -55,7 +56,8 @@ client.on('guildMemberRemove', member =>{
 	removeMemberEmbed.setTitle('User left')
 	removeMemberEmbed.setDescription(`**Tag:** ${member.user.tag}\n**ID:** ${member.user.id}`)
 	removeMemberEmbed.setColor(0xff3838)
-	removeMemberEmbed.setThumbnail(`${member.user.displayAvatarURL({dynamic: true})}`)
+    removeMemberEmbed.setThumbnail(`${member.user.displayAvatarURL({dynamic: true})}`)
+    removeMemberEmbed.setFooter(`Current member count: ${member.guild.memberCount}`)
 
         member.guild.channels.cache.find(ch => ch.name === '—join-leave-log—').send(removeMemberEmbed);
 });
