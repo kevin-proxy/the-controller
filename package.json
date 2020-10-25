@@ -1,13 +1,13 @@
 {
-  "name": "arcade-bot",
+  "name": "the-controller",
   "version": "1.0.0",
-  "description": "A bot for my Discord Server",
+  "description": "A bot for my Discord Server, The Arcade",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Proxy (Kevin)",
-  "license": "ISC",
+  "author": "Kevin Cheung",
+  "license": "Apache-2.0",
   "dependencies": {
     "discord.js": "^12.4.1",
     "ms": "^2.1.2"
