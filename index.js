@@ -61,6 +61,4 @@ client.on('guildMemberRemove', member =>{
 
         member.guild.channels.cache.find(ch => ch.name === '—join-leave-log—').send(removeMemberEmbed);
 });
-client.login('NjgzMDM1NzE1ODMxMjAxODI1.XllslA.W74u1ARc-c4efhpJyNVT42GYCDg');
-
-//process.env.BOT_TOKEN
+client.login(process.env.BOT_TOKEN);
