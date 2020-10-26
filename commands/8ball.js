@@ -7,7 +7,7 @@ module.exports = {
             return replies[Math.floor(Math.random()*replies.length)]
         }
         if(!args[0]){
-            message.reply('Give me something to predict, stupid')
+            message.reply('Give me something to predict, stupid');
         }else{
             message.reply(eightBall());
         }

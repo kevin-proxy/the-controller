@@ -32,6 +32,8 @@ client.on('message', message=>{
 	
     if(!client.commands.has(command)) return;
 
+    if(message.channel.type == 'dm') return;
+
     try{
         client.commands.get(command).execute(message, args);
     }catch (err) {

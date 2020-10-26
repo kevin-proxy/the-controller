@@ -3,7 +3,6 @@ module.exports = {
   name: 'command-info',
   description: 'Gives a description of a command',
   execute(message, args){
-    if (message.channel.type == "dm") return;
         
         if(!args[0]){
             const descArgEmbed = new Discord.MessageEmbed();
