@@ -5,10 +5,13 @@ const { prefix } = require('./config.json');
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 
+global.client = client
+global.prefix = prefix
+
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 client.once('ready', () =>{
-    console.log('Ready');
+    console.log(`Logged in as ${client.user.username}`);
     client.user.setActivity('arcade help')
 })
 
@@ -48,7 +51,7 @@ client.on('guildMemberAdd', member =>{
     addMemberEmbed.setThumbnail(`${member.user.displayAvatarURL({dynamic: true})}`)
     addMemberEmbed.setFooter(`Current member count: ${member.guild.memberCount}`)
 	
-	member.guild.channels.cache.find(ch => ch.name === '—join-leave-log—').send(addMemberEmbed);
+	member.guild.channels.cache.find(ch => ch.id === '769314874970603590').send(addMemberEmbed);
 });
 
 client.on('guildMemberRemove', member =>{
@@ -59,6 +62,7 @@ client.on('guildMemberRemove', member =>{
     removeMemberEmbed.setThumbnail(`${member.user.displayAvatarURL({dynamic: true})}`)
     removeMemberEmbed.setFooter(`Current member count: ${member.guild.memberCount}`)
 
-        member.guild.channels.cache.find(ch => ch.name === '—join-leave-log—').send(removeMemberEmbed);
+        member.guild.channels.cache.find(ch => ch.id === '769314874970603590').send(removeMemberEmbed);
 });
-client.login(process.env.BOT_TOKEN);
+client.login('NjgzMDM1NzE1ODMxMjAxODI1.XllslA.W74u1ARc-c4efhpJyNVT42GYCDg');
+//process.env.BOT_TOKEN
