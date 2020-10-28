@@ -3,9 +3,8 @@ module.exports = {
   name: 'purge',
   description: 'BulkDelete up to 99 messages.',
   execute(message, args){
-    if (message.channel.type == "dm"){
-      return;
-    }
+
+    const successEmoji = client.emojis.cache.find(s => s.name === 'approved')
     if(!message.member.hasPermission('MANAGE_MESSAGES')){
                 
             const purgePermissionEmbed = new Discord.MessageEmbed();
@@ -35,17 +34,17 @@ module.exports = {
             const purgeErrEmbed = new Discord.MessageEmbed();
             purgeErrEmbed.setDescription('An error occured, please try again later...')
             purgeErrEmbed.setColor(0x3366ff)
-            
+
             message.channel.bulkDelete(parseInt(args[0]) + 1, true).catch(err =>{
-            console.error(err);
-            message.channel.send(purgeErrEmbed).then(msg => msg.delete({timeout: 3000}));
+              console.error(err);
+              message.channel.send(purgeErrEmbed).then(msg => msg.delete({timeout: 3000}));
             }).then(()=>{
             
-            const purgeClearedEmbed = new Discord.MessageEmbed();
-            purgeClearedEmbed.setDescription(`Successfully purged ${args[0]} messages!`)
-            purgeClearedEmbed.setColor(0x3366ff)
-            
-            message.channel.send(purgeClearedEmbed).then(msg => msg.delete({timeout: 3000}));
+            const purgeSuccessEmbed = new Discord.MessageEmbed();
+            purgeSuccessEmbed.setDescription(`${successEmoji} Successfully purged ${args[0]} messages!`)
+            purgeSuccessEmbed.setColor(0x3366ff)
+          
+            message.channel.send(purgeSuccessEmbed).then(msg => msg.delete({timeout: 3000}));
             }).catch(err => {
             console.error(err);
             })

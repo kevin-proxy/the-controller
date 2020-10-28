@@ -3,12 +3,20 @@ module.exports= {
   name: 'help',
   description: 'Lists all the possible commands with this bot',
   execute(message){
-    if (message.channel.type == "dm") return;
 
         const commandsEmbed = new Discord.MessageEmbed()
         commandsEmbed.setTitle('Help is here!')
-        commandsEmbed.setDescription('Go to https://github.com/akaproxygithub/the-controller-info for a list of commands, a description of all of them and some extra info about the bot.\n\nIf you want a detailed description of a particular command directly through Discord, execute the following: `arcade command-info <command>` e.g. `arcade command-info kick`')
+        commandsEmbed.setDescription('To get a detailed description of a command, execute: `arcade command-info <command>` e.g. `arcade command-info dice-roll`\n\nThis bot\'s prefix is `arcade`')
+        commandsEmbed.addFields(
+          {name: "Moderation", value: "`ban`, `unban`, `kick`, `mute`, `unmute`, `purge`", inline: false},
+          {name: "Fun", value: "`8ball`, `ask-trump`, `coin-flip`, `dice-roll`, `say`, `uno-reverse`, `ping`", inline: false},
+          {name: "Informative", value: "`user-info`, `server-info`, `command-info`, `channel-info`, `help`", inline: false}
+        )
         commandsEmbed.setColor(0x3366ff)
+        commandsEmbed.setFooter(`Requested by ${message.author.username}`)
+        commandsEmbed.setTimestamp()
+        commandsEmbed.setThumbnail(message.guild.iconURL({dynamic: true}))
+
         
         message.channel.send(commandsEmbed);
   },

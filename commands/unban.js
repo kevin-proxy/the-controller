@@ -4,7 +4,7 @@ module.exports = {
   description: 'Unban members',
   execute(message, args){
         
-        const user = message.mentions.users.first();
+        const userID = args[0];
         
         const banPermissionEmbed = new Discord.MessageEmbed();
         banPermissionEmbed.setDescription('You do not have permission to unban members!')
@@ -15,7 +15,7 @@ module.exports = {
         banLimitEmbed.setColor(0x3366ff)
         
         const banSuccessEmbed = new Discord.MessageEmbed();
-        banSuccessEmbed.setDescription(`Successfully unbanned ${user}`)
+        banSuccessEmbed.setDescription(`Successfully unbanned ${userID}`)
         banSuccessEmbed.setColor(0x3366ff)
         
         const banErrEmbed = new Discord.MessageEmbed();
@@ -23,27 +23,24 @@ module.exports = {
         banErrEmbed.setColor(0x3366ff)
         
         const banArgsEmbed = new Discord.MessageEmbed();
-        banArgsEmbed.setDescription('Please mention a user to unban!')
+        banArgsEmbed.setDescription('Please provide a valid ID of a banned user to unban!')
         banArgsEmbed.setColor(0x3366ff)
         
         if(!message.member.hasPermission('BAN_MEMBERS')){
            return message.channel.send(banPermissionEmbed).then(msg => msg.delete({timeout: 3000}));
         };
         
-        if(user){
-            
-            const member = message.guild.member(user);
 
-            if(member){
-                member.unban(id).then(() =>{
+            message.guild.fetchBans().then(bans=> {
+                if(bans.size == 0) return
+                let bUser = bans.find(b => b.user.id == userID)
+                if(!bUser) return message.channel.send(banArgsEmbed)
+                message.guild.members.unban(bUser.user).then(() =>{
                     message.channel.send(banSuccessEmbed);
                 }).catch(err =>{
                     message.channel.send(banErrEmbed).then(msg => msg.delete({timeout: 3000}));
                     console.error(err);
                 });
-            }
-        }else{
-            return message.reply(banArgsEmbed).then(msg => msg.delete({timeout: 3000}));
-        }
+          })
   },
 };

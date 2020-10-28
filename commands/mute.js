@@ -8,7 +8,6 @@ module.exports = {
         const mutedrole = message.guild.roles.cache.find(r => r.name === "Muted");
         const member = message.guild.member(user)
         const time = args[1];
-        const reason = args[2];
 
         const muteSuccessNoTime = new Discord.MessageEmbed();
         muteSuccessNoTime.setDescription(`Successfully muted ${user}`)
@@ -38,10 +37,15 @@ module.exports = {
         alreadyMutedEmbed.setDescription('That user is already muted!')
         alreadyMutedEmbed.setColor(0x3366ff)
 
-        if (message.channel.type == "dm") return;
+        const staffEmbed = new Discord.MessageEmbed();
+        staffEmbed.setDescription('You cannot mute a member of staff!')
+        staffEmbed.setColor(0x3366ff)
 
         if(!message.member.hasPermission('MUTE_MEMBERS')){
             return message.channel.send(permissionEmbed).then(msg => msg.delete({timeout: 3000}));
+        }
+        if(member.roles.cache.has('749421428339638332')){
+            return message.channel.send(staffEmbed)
         }
 
         if(user){

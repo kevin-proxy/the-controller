@@ -3,13 +3,13 @@ module.exports = {
   name: 'ping',
   description: 'A useless, basic ping command',
   execute(message, args){
-    if (message.channel.type == "dm") return;
-            
-        const pingEmbed = new Discord.MessageEmbed();
+    message.reply('Pinging...').then((resultMessage) => {
+      const pingEmbed = new Discord.MessageEmbed();
         pingEmbed.setTitle('Pong!')
-        pingEmbed.setDescription("Your ping is `" + `${Date.now() - message.createdTimestamp}` + "ms`")
+        pingEmbed.setDescription("WebSocket Latency: `" + `${client.ws.ping}`+"ms`" + "\nMessage Edit Latency: " + "`" + `${resultMessage.createdTimestamp - message.createdTimestamp}` + "ms`")
         pingEmbed.setColor(0x3366ff)
             
-        message.channel.send(pingEmbed);
+        resultMessage.edit('Test');
+    })
   },
 };

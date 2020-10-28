@@ -1,25 +1,25 @@
+//configuration
 const fs = require('fs');
 const Discord = require('discord.js');
 const { prefix } = require('./config.json');
-
 const client = new Discord.Client();
-client.commands = new Discord.Collection();
-
 global.client = client
-global.prefix = prefix
 
+//commands
+client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-
-client.once('ready', () =>{
-    console.log(`Logged in as ${client.user.username}`);
-    client.user.setActivity('arcade help')
-})
-
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.name, command);
 }
 
+//ready
+client.once('ready', () =>{
+    console.log(`Logged in as ${client.user.username}`);
+    client.user.setActivity('arcade help')
+})
+
+//first message
 client.on('message', message=>{
     if(!message.content.startsWith(prefix) || message.author.bot) return;
     
@@ -31,8 +31,8 @@ client.on('message', message=>{
     errEmbed.setColor(0x3366ff)
 	
     if(!client.commands.has(command)) return;
-
     if(message.channel.type == 'dm') return;
+    if(message.guild.name !== 'The Arcade') return;
 
     try{
         client.commands.get(command).execute(message, args);
@@ -42,6 +42,21 @@ client.on('message', message=>{
     }
 });
 
+//member leaves
+client.on('guildMemberRemove', member =>{
+	const removeMemberEmbed = new Discord.MessageEmbed();
+	removeMemberEmbed.setTitle('User left')
+	removeMemberEmbed.setDescription(`**Tag:** ${member.user.tag}\n**ID:** ${member.user.id}`)
+	removeMemberEmbed.setColor(0xff3838)
+    removeMemberEmbed.setThumbnail(`${member.user.displayAvatarURL({dynamic: true})}`)
+    removeMemberEmbed.setFooter(`Current member count: ${member.guild.memberCount}`)
+
+        const channel = member.guild.channels.cache.find(ch => ch.id === '—join-leave-log—').send(removeMemberEmbed)
+        if(!channel) console.log('No channel found')
+        channel.send(removeMemberEmbed)
+});
+
+//member joins
 client.on('guildMemberAdd', member =>{
 	member.roles.add("766033819945271326").catch(console.error)
 	
@@ -53,18 +68,11 @@ client.on('guildMemberAdd', member =>{
     addMemberEmbed.setThumbnail(`${member.user.displayAvatarURL({dynamic: true})}`)
     addMemberEmbed.setFooter(`Current member count: ${member.guild.memberCount}`)
 	
-	member.guild.channels.cache.find(ch => ch.id === '769314874970603590').send(addMemberEmbed);
+	const channel = member.guild.channels.cache.find(ch => ch.id === '—join-leave-log—').send(removeMemberEmbed)
+        if(!channel) console.log('No channel found')
+        channel.send(addMemberEmbed)
 });
 
-client.on('guildMemberRemove', member =>{
-	const removeMemberEmbed = new Discord.MessageEmbed();
-	removeMemberEmbed.setTitle('User left')
-	removeMemberEmbed.setDescription(`**Tag:** ${member.user.tag}\n**ID:** ${member.user.id}`)
-	removeMemberEmbed.setColor(0xff3838)
-    removeMemberEmbed.setThumbnail(`${member.user.displayAvatarURL({dynamic: true})}`)
-    removeMemberEmbed.setFooter(`Current member count: ${member.guild.memberCount}`)
-
-        member.guild.channels.cache.find(ch => ch.id === '769314874970603590').send(removeMemberEmbed);
-});
+//log in
 client.login('NjgzMDM1NzE1ODMxMjAxODI1.XllslA.W74u1ARc-c4efhpJyNVT42GYCDg');
 //process.env.BOT_TOKEN

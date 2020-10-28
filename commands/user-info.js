@@ -3,7 +3,6 @@ module.exports = {
   name: 'user-info',
   description: 'Displays information of a user',
   execute(message, args){
-    if (message.channel.type == "dm") return;
 
         if(!message.mentions.users.size){
             
@@ -19,6 +18,7 @@ module.exports = {
             )
         myInfoEmbed.setFooter(`Requested by ${message.author.username}`)
         myInfoEmbed.setThumbnail(`${message.author.displayAvatarURL({dynamic: true})}`)
+        myInfoEmbed.setTimestamp()
         
         return message.channel.send(myInfoEmbed);
             
@@ -36,6 +36,7 @@ module.exports = {
                 {name: 'Joined Server At', value: `${memberInfo.joinedAt}`, inline: true},
                 )
             userInfoEmbed.setFooter(`Requested by ${message.author.username}`)
+            userInfoEmbed.setTimestamp
             
             message.channel.send(userInfoEmbed);
         }
