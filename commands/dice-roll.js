@@ -13,7 +13,7 @@ module.exports = {
         }
 
         const diceEmbed = new Discord.MessageEmbed();
-        diceEmbed.setTitle(`You rolled a ${firstDie()} and a ${secondDie()}!`)
+        diceEmbed.setDescription(`You rolled a **${firstDie()}** and a **${secondDie()}**!`)
         diceEmbed.setColor(0x3366ff)
 
         message.channel.send(diceEmbed)
