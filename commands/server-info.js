@@ -7,7 +7,11 @@ module.exports = {
         serverEmbed.setTitle(message.guild.name)
         serverEmbed.addFields(
             {name: "Member count", value: message.guild.memberCount, inline: true},
-            {name: "Owner", value: message.guild.owner.user.username, inline: true}
+            {name: "Owner", value: message.guild.owner.user.username, inline: true},
+            {name: "Region", value: message.guild.region, inline: true},
+            {name: "Date Created", value: message.guild.createdAt, inline: true},
+            {name: "Verification Level", value: message.guild.verificationLevel, inline: true},
+            {name: ""}
         )
         serverEmbed.setColor(0x3366ff)
         serverEmbed.setFooter(`Requested by ${message.author.username}`)

@@ -2,9 +2,7 @@ const Discord = require('discord.js');
 module.exports = {
   name: 'purge',
   description: 'BulkDelete up to 99 messages.',
-  execute(message, args){
-
-    const successEmoji = client.emojis.cache.find(s => s.name === 'approved')
+  execute(message, args, approvedEmoji){
     if(!message.member.hasPermission('MANAGE_MESSAGES')){
                 
             const purgePermissionEmbed = new Discord.MessageEmbed();
@@ -41,7 +39,7 @@ module.exports = {
             }).then(()=>{
             
             const purgeSuccessEmbed = new Discord.MessageEmbed();
-            purgeSuccessEmbed.setDescription(`${successEmoji} Successfully purged ${args[0]} messages!`)
+            purgeSuccessEmbed.setDescription(`${approvedEmoji} Successfully purged ${args[0]} messages!`)
             purgeSuccessEmbed.setColor(0x3366ff)
           
             message.channel.send(purgeSuccessEmbed).then(msg => msg.delete({timeout: 3000}));

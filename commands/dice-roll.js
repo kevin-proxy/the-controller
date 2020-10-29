@@ -2,7 +2,7 @@ const Discord = require('discord.js')
 module.exports = {
     name: "dice-roll",
     description: "Rolls two 6 faced dice",
-    execute(message,args){
+    execute(message){
         function firstDie(){
             var dieOne = Math.floor(Math.random() * 6 ) + 1;
             return dieOne
@@ -13,9 +13,8 @@ module.exports = {
         }
 
         const diceEmbed = new Discord.MessageEmbed();
-        diceEmbed.setTitle(`You rolled a ${firstDie()} and a ${secondDie()}!`)
+        diceEmbed.setDescription(`You rolled a **${firstDie()}** and a **${secondDie()}**!`)
         diceEmbed.setColor(0x3366ff)
-        diceEmbed.setThumbnail('https://i.imgur.com/csW6v0O.png')
 
         message.channel.send(diceEmbed)
     }

@@ -3,12 +3,12 @@ module.exports = {
     name: 'unmute',
     description: 'A command that unmutes people',
     execute(message, args){
-
-        const user = message.mentions.users.first();
-        const member = message.guild.member(user)
+        const targetUser = message.mentions.users.first();
+        const member = message.guild.member(targetUser);
+        const reason = args.slice(100).join(` `);
 
         const unmuteSuccess = new Discord.MessageEmbed();
-        unmuteSuccess.setDescription(`Successfully unmuted ${user}`)
+        unmuteSuccess.setDescription(`Successfully unmuted ${targetUser}`)
         unmuteSuccess.setColor(0x3366ff)
 
         const errorEmbed = new Discord.MessageEmbed();
@@ -27,13 +27,11 @@ module.exports = {
         notMutedEmbed.setDescription('That user is not muted!')
         notMutedEmbed.setColor(0x3366ff)
 
-        if (message.channel.type == "dm") return;
-
         if(!message.member.hasPermission('MUTE_MEMBERS')){
             return message.channel.send(permissionEmbed).then(msg => msg.delete({timeout: 3000}));
         }
 
-        if(user){
+        if(targetUser){
             if(member.roles.cache.has('766778409342337084')){
                 member.roles.remove('766778409342337084').then(() =>{
                     message.channel.send(unmuteSuccess).then(msg => msg.delete({timeout: 3000}));

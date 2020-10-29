@@ -1,11 +1,11 @@
-//configuration
+//bot configuration
 const fs = require('fs');
 const Discord = require('discord.js');
 const { prefix } = require('./config.json');
 const client = new Discord.Client();
 global.client = client
 
-//commands
+//command configuration
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
@@ -13,36 +13,82 @@ for (const file of commandFiles) {
 	client.commands.set(command.name, command);
 }
 
-//ready
+//event: ready
 client.once('ready', () =>{
     console.log(`Logged in as ${client.user.username}`);
     client.user.setActivity('arcade help')
 })
 
-//first message
+//event: message
 client.on('message', message=>{
+    //easter eggs
+    if(message.content === "hello there"){
+        message.reply('General Kenobi!')
+    }
+    if(message.content === "Hello there"){
+        message.reply('General Kenobi!')
+    }
+    if(message.content === "Hello there!"){
+        message.reply('General Kenobi!')
+    }
+    if(message.content === "hello there!"){
+        message.reply('General Kenobi!')
+    }
+    if(message.content.startsWith('I\'m')){
+        let im = message.content.split(" ")
+        im.shift()
+        im = im.join(" ")
+        message.channel.send(`Hi ${im}, I'm dad!`)
+    }
+    if(message.content.startsWith('Im')){
+        let im = message.content.split(" ")
+        im.shift()
+        im = im.join(" ")
+        message.channel.send(`Hi ${im}, I'm dad!`)
+    }
+    if(message.content.startsWith('im')){
+        let im = message.content.split(" ")
+        im.shift()
+        im = im.join(" ")
+        message.channel.send(`Hi ${im}, I'm dad!`)
+    }
+    if(message.content.startsWith('i\'m')){
+        let im = message.content.split(" ")
+        im.shift()
+        im = im.join(" ")
+        message.channel.send(`Hi ${im}, I'm dad!`)
+    }
+    //command handling config
     if(!message.content.startsWith(prefix) || message.author.bot) return;
     
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
-	
+
+    //emojis
+    const approvedEmoji = client.emojis.cache.find(e => e.name === "approved")
+    const disapprovedEmoji = client.emojis.cache.find(e => e.name === "disapproved")
+    const warningEmoji = client.emojis.cache.find(e => e.name === "warning")
+
+    //command execution error embed
     const errEmbed = new Discord.MessageEmbed();
-    errEmbed.setDescription('There was an error trying to execute this command!')
+    errEmbed.setDescription(`Something went wrong, try again later...`)
     errEmbed.setColor(0x3366ff)
-	
+
+    //command handler check
     if(!client.commands.has(command)) return;
     if(message.channel.type == 'dm') return;
     if(message.guild.name !== 'The Arcade') return;
 
+    //command handler
     try{
-        client.commands.get(command).execute(message, args);
+        client.commands.get(command).execute(message, args, approvedEmoji, disapprovedEmoji, warningEmoji, errEmbed);
     }catch (err) {
         console.error(err);
         message.channel.send(errEmbed).then(msg => msg.delete({timeout: 3000}))
     }
 });
 
-//member leaves
+//event: guildmemberremove (member leaves)
 client.on('guildMemberRemove', member =>{
 	const removeMemberEmbed = new Discord.MessageEmbed();
 	removeMemberEmbed.setTitle('User left')
@@ -56,7 +102,7 @@ client.on('guildMemberRemove', member =>{
         channel.send(removeMemberEmbed)
 });
 
-//member joins
+//event: guildmemberadd (member joins)
 client.on('guildMemberAdd', member =>{
 	member.roles.add("766033819945271326").catch(console.error)
 	

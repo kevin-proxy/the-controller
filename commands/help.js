@@ -9,7 +9,7 @@ module.exports= {
         commandsEmbed.setDescription('To get a detailed description of a command, execute: `arcade command-info <command>` e.g. `arcade command-info dice-roll`\n\nThis bot\'s prefix is `arcade`')
         commandsEmbed.addFields(
           {name: "Moderation", value: "`ban`, `unban`, `kick`, `mute`, `unmute`, `purge`", inline: false},
-          {name: "Fun", value: "`8ball`, `ask-trump`, `coin-flip`, `dice-roll`, `say`, `uno-reverse`, `ping`", inline: false},
+          {name: "Fun", value: "`8ball`, `ask-trump`, `coin-flip`, `dice-roll`, `say`, `uno-reverse`", inline: false},
           {name: "Informative", value: "`user-info`, `server-info`, `command-info`, `channel-info`, `help`", inline: false}
         )
         commandsEmbed.setColor(0x3366ff)

@@ -2,43 +2,41 @@ const Discord = require('discord.js');
 module.exports = {
   name: 'user-info',
   description: 'Displays information of a user',
-  execute(message, args){
+  execute(message){
+      const targetUser = message.mentions.users.first()
+      const member = message.guild.member(targetUser)
+      const authorMember = message.guild.member(message.author)
 
-        if(!message.mentions.users.size){
-            
-        const memberAuthorInfo = message.guild.member(message.author)
+      if(!targetUser){
             
         const myInfoEmbed = new Discord.MessageEmbed();
         myInfoEmbed.setTitle(message.author.username)
-        myInfoEmbed.setDescription(`**Tag:** ${message.author.tag}\n**ID:** ${message.author.id}\n**Bot Account:** ${message.author.bot}\n`)
+        myInfoEmbed.setDescription(`**Tag:** ${message.author.tag}\n**ID:** ${message.author.id}\n**Bot Account:** ${message.author.bot}`)
         myInfoEmbed.setColor(0x3366ff)
         myInfoEmbed.addFields(
-            {name: 'Account Created At', value: `${message.author.createdAt}`, inline: true},
-            {name: 'Joined Server At', value: `${memberAuthorInfo.joinedAt}`, inline: true},
+            {name: 'Account Created At', value: message.author.createdAt, inline: true},
+            {name: 'Joined Server At', value: authorMember.joinedAt, inline: true},
             )
         myInfoEmbed.setFooter(`Requested by ${message.author.username}`)
         myInfoEmbed.setThumbnail(`${message.author.displayAvatarURL({dynamic: true})}`)
         myInfoEmbed.setTimestamp()
         
-        return message.channel.send(myInfoEmbed);
-            
-        }else{
-            
-            const memberInfo = message.guild.member(message.mentions.users.first())
+        message.channel.send(myInfoEmbed);
+    }else{
             
             const userInfoEmbed = new Discord.MessageEmbed();
-            userInfoEmbed.setTitle(message.mentions.users.first().username)
-            userInfoEmbed.setDescription(`**Tag:** ${message.mentions.users.first().tag}\n**ID:** ${message.mentions.users.first().id}\n**Bot Account:** ${message.mentions.users.first().bot}`)
+            userInfoEmbed.setTitle(targetUser.username)
+            userInfoEmbed.setDescription(`**Tag:** ${targetUser.tag}\n**ID:** ${targetUser.id}\n**Bot Account:** ${targetUser.bot}`)
             userInfoEmbed.setColor(0x3366ff)
-            userInfoEmbed.setThumbnail(`${message.mentions.users.first().displayAvatarURL({dynamic: true})}`)
+            userInfoEmbed.setThumbnail(targetUser.displayAvatarURL({dynamic: true}))
             userInfoEmbed.addFields(
-                {name: 'Account Created At', value: `${message.mentions.users.first().createdAt}`, inline: true},
-                {name: 'Joined Server At', value: `${memberInfo.joinedAt}`, inline: true},
+                {name: 'Account Created At', value: `${targetUser.createdAt}`, inline: true},
+                {name: 'Joined Server At', value: `${member.joinedAt}`, inline: true},
                 )
             userInfoEmbed.setFooter(`Requested by ${message.author.username}`)
             userInfoEmbed.setTimestamp
             
             message.channel.send(userInfoEmbed);
         }
-  },
+    },
 };
