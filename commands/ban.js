@@ -47,6 +47,8 @@ module.exports = {
                 };
                 member.ban({reason: reason}).then(() =>{
                     message.channel.send(banSuccessEmbed);
+                }).then(() =>{
+                    message.guild.channel.cache
                 }).catch(err =>{
                     message.channel.send(banErrEmbed).then(msg => msg.delete({timeout: 3000}));
                     console.error(err);

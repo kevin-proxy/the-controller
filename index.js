@@ -21,48 +21,20 @@ client.once('ready', () =>{
 
 //event: message
 client.on('message', message=>{
-    //easter eggs
-    if(message.content === "hello there"){
-        message.reply('General Kenobi!')
-    }
-    if(message.content === "Hello there"){
-        message.reply('General Kenobi!')
-    }
-    if(message.content === "Hello there!"){
-        message.reply('General Kenobi!')
-    }
-    if(message.content === "hello there!"){
-        message.reply('General Kenobi!')
-    }
-    if(message.content.startsWith('I\'m')){
-        let im = message.content.split(" ")
-        im.shift()
-        im = im.join(" ")
-        message.channel.send(`Hi ${im}, I'm dad!`)
-    }
-    if(message.content.startsWith('Im')){
-        let im = message.content.split(" ")
-        im.shift()
-        im = im.join(" ")
-        message.channel.send(`Hi ${im}, I'm dad!`)
-    }
-    if(message.content.startsWith('im')){
-        let im = message.content.split(" ")
-        im.shift()
-        im = im.join(" ")
-        message.channel.send(`Hi ${im}, I'm dad!`)
-    }
-    if(message.content.startsWith('i\'m')){
-        let im = message.content.split(" ")
-        im.shift()
-        im = im.join(" ")
-        message.channel.send(`Hi ${im}, I'm dad!`)
-    }
+
     //command handling config
     if(!message.content.startsWith(prefix) || message.author.bot) return;
-    
+
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
+
+    //command handler check
+    if(!client.commands.has(command)) return;
+    if(message.channel.type == 'dm') return;
+    if(message.guild.name !== 'The Arcade') return;
+
+    //moderator action case count
+    const caseCount = 0;
 
     //emojis
     const approvedEmoji = client.emojis.cache.find(e => e.name === "approved")
@@ -74,14 +46,9 @@ client.on('message', message=>{
     errEmbed.setDescription(`Something went wrong, try again later...`)
     errEmbed.setColor(0x3366ff)
 
-    //command handler check
-    if(!client.commands.has(command)) return;
-    if(message.channel.type == 'dm') return;
-    if(message.guild.name !== 'The Arcade') return;
-
     //command handler
     try{
-        client.commands.get(command).execute(message, args, approvedEmoji, disapprovedEmoji, warningEmoji, errEmbed);
+        client.commands.get(command).execute(message, args, approvedEmoji, disapprovedEmoji, warningEmoji, errEmbed, caseCount);
     }catch (err) {
         console.error(err);
         message.channel.send(errEmbed).then(msg => msg.delete({timeout: 3000}))
