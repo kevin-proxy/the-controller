@@ -1,10 +1,18 @@
-const Discord = require('discord.js');
+const Discord = require("discord.js");
 module.exports = {
-  name: 'ping',
-  description: 'A useless, basic ping command',
-  execute(message, args){
-    message.reply('Pinging...').then((resultMessage) => {
-        resultMessage.edit("WebSocket Latency: `" + `${client.ws.ping}`+"ms`" + "\nMessage Edit Latency: " + "`" + `${resultMessage.createdTimestamp - message.createdTimestamp}` + "ms`");
-    })
+  name: "ping",
+  description: "A useless, basic ping command",
+  execute(message) {
+    message.reply("Pinging...").then((resultMessage) => {
+      resultMessage.edit(
+        "WebSocket Latency: `" +
+          `${client.ws.ping}` +
+          "ms`" +
+          "\nMessage Edit Latency: " +
+          "`" +
+          `${resultMessage.createdTimestamp - message.createdTimestamp}` +
+          "ms`"
+      );
+    });
   },
 };
