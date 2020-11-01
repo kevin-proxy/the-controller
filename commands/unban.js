@@ -22,97 +22,91 @@ module.exports = {
       if (userID) {
         if (bannedUser) {
           if (reason) {
-            message.guild.fetchBans().then((bans) => {
-              if (bans.size == 0) return;
-              message.guild.members
-                .unban(bannedUser.user)
-                .then(() => {
-                  const successEmbed = new Discord.MessageEmbed();
-                  successEmbed.setDescription(
-                    `${approvedEmoji} Successfully unbanned ${userID}`
-                  );
-                  successEmbed.setColor(0x3366ff);
-                  message.channel.send(successEmbed);
-                })
-                .then(() => {
-                  const unbanLogEmbed = new Discord.MessageEmbed();
-                  unbanLogEmbed.setTitle("Unban");
-                  unbanLogEmbed.addFields(
-                    {
-                      name: "ID of unbanned member",
-                      value: userID,
-                      inline: true,
-                    },
-                    {
-                      name: "Responsible Moderator",
-                      value: message.author.tag,
-                      inline: true,
-                    },
-                    {
-                      name: "Reason",
-                      value: reason,
-                      inline: true,
-                    }
-                  );
-                  message.guild.channels.cache
-                    .find((c) => c.id === "769609262636335144")
-                    .send(unbanLogEmbed);
-                })
-                .catch((err) => {
-                  message.channel.send(errEmbed).then((msg) =>
-                    msg.delete({
-                      timeout: 3000,
-                    })
-                  );
-                  console.error(err);
-                });
-            });
+            message.guild.members
+              .unban(bannedUser.user)
+              .then(() => {
+                const successEmbed = new Discord.MessageEmbed();
+                successEmbed.setDescription(
+                  `${approvedEmoji} Successfully unbanned ${userID}`
+                );
+                successEmbed.setColor(0x3366ff);
+                message.channel.send(successEmbed);
+              })
+              .then(() => {
+                const unbanLogEmbed = new Discord.MessageEmbed();
+                unbanLogEmbed.setTitle("Unban");
+                unbanLogEmbed.addFields(
+                  {
+                    name: "ID of unbanned member",
+                    value: userID,
+                    inline: true,
+                  },
+                  {
+                    name: "Responsible Moderator",
+                    value: message.author.tag,
+                    inline: true,
+                  },
+                  {
+                    name: "Reason",
+                    value: reason,
+                    inline: true,
+                  }
+                );
+                message.guild.channels.cache
+                  .find((c) => c.id === "769609262636335144")
+                  .send(unbanLogEmbed);
+              })
+              .catch((err) => {
+                message.channel.send(errEmbed).then((msg) =>
+                  msg.delete({
+                    timeout: 3000,
+                  })
+                );
+                console.error(err);
+              });
           } else {
-            message.guild.fetchBans().then((bans) => {
-              if (bans.size == 0) return;
-              message.guild.members
-                .unban(bannedUser.user)
-                .then(() => {
-                  const successEmbed = new Discord.MessageEmbed();
-                  successEmbed.setDescription(
-                    `${approvedEmoji} Successfully unbanned ${userID}`
-                  );
-                  successEmbed.setColor(0x3366ff);
-                  message.channel.send(successEmbed);
-                })
-                .then(() => {
-                  const unbanLogEmbed = new Discord.MessageEmbed();
-                  unbanLogEmbed.setTitle("Unban");
-                  unbanLogEmbed.addFields(
-                    {
-                      name: "ID of unbanned member",
-                      value: userID,
-                      inline: true,
-                    },
-                    {
-                      name: "Responsible Moderator",
-                      value: message.author.tag,
-                      inline: true,
-                    },
-                    {
-                      name: "Reason",
-                      value: "Unspecified",
-                      inline: true,
-                    }
-                  );
-                  message.guild.channels.cache
-                    .find((c) => c.id === "769609262636335144")
-                    .send(unbanLogEmbed);
-                })
-                .catch((err) => {
-                  message.channel.send(errEmbed).then((msg) =>
-                    msg.delete({
-                      timeout: 3000,
-                    })
-                  );
-                  console.error(err);
-                });
-            });
+            message.guild.members
+              .unban(bannedUser.user)
+              .then(() => {
+                const successEmbed = new Discord.MessageEmbed();
+                successEmbed.setDescription(
+                  `${approvedEmoji} Successfully unbanned ${userID}`
+                );
+                successEmbed.setColor(0x3366ff);
+                message.channel.send(successEmbed);
+              })
+              .then(() => {
+                const unbanLogEmbed = new Discord.MessageEmbed();
+                unbanLogEmbed.setTitle("Unban");
+                unbanLogEmbed.addFields(
+                  {
+                    name: "ID of unbanned member",
+                    value: userID,
+                    inline: true,
+                  },
+                  {
+                    name: "Responsible Moderator",
+                    value: message.author.tag,
+                    inline: true,
+                  },
+                  {
+                    name: "Reason",
+                    value: "Unspecified",
+                    inline: true,
+                  }
+                );
+                message.guild.channels.cache
+                  .find((c) => c.id === "769609262636335144")
+                  .send(unbanLogEmbed);
+              })
+              .catch((err) => {
+                message.channel.send(errEmbed).then((msg) =>
+                  msg.delete({
+                    timeout: 3000,
+                  })
+                );
+                console.error(err);
+              });
           }
         } else {
           const noMemberEmbed = new Discord.MessageEmbed();
