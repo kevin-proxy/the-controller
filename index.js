@@ -111,11 +111,11 @@ client.on("guildMemberAdd", (member) => {
   if (!channel) console.log("Event: guildMemberAdd error, no channel found");
   channel.send(addMemberEmbed).then(() => {
     const welcomeChannel = member.guild.channels.cache.find(
-      (ch) => (ch.id = "749626543789178891")
+      (ch) => (ch.id = "772522158123515904")
     );
     const welcomeEmbed = new Discord.MessageEmbed();
     welcomeEmbed.setDescription(
-      `Welcome to ${member.guild.name} ${member}! Here, you can find a range of fun bot games including: Dank Memer, Myuu, Unbelievaboat, IdleRPG and more plus a friendly and welcoming community! We hope you enjoy your stay here!`
+      `${member}, welcome to ${member.guild.name}! You are the ${meber.guild.memberCount}th member. Here, you can find a range of fun bot games including: Dank Memer, Myuu, Unbelievaboat, IdleRPG and more plus a friendly and welcoming community! We hope you enjoy your stay here!`
     );
     welcomeEmbed.setColor(0x3366ff);
     welcomeChannel.send(welcomeEmbed);

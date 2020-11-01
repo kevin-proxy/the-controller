@@ -4,7 +4,9 @@ module.exports = {
   description: "A command that mutes people",
   execute(message, args, approvedEmoji, disapprovedEmoji, errEmbed) {
     const targetUser = message.mentions.users.first();
-    const mutedRole = message.guild.roles.cache.find((r) => r.name === "Muted");
+    const mutedRole = message.guild.roles.cache.find(
+      (r) => r.id === "766778409342337084"
+    );
     const member = message.guild.member(targetUser);
     const time = args[1];
     const reason = args.slice(2).join(` `);
@@ -15,7 +17,7 @@ module.exports = {
         `${disapprovedEmoji} You do not have permission to mute members!`
       );
       permissionEmbed.setColor(0x3366ff);
-      return message.channel.send(permissionEmbed).then((msg) =>
+      message.channel.send(permissionEmbed).then((msg) =>
         msg.delete({
           timeout: 3000,
         })
@@ -50,13 +52,13 @@ module.exports = {
               muteLogEmbed.setTitle(`Mute`);
               muteLogEmbed.addFields(
                 {
-                  name: "Member",
+                  name: "Offending Member",
                   value: `${targetUser.tag} (${member.id})`,
                   inline: false,
                 },
                 {
-                  name: "Moderator Responsible",
-                  value: message.author.username,
+                  name: "Responsible Moderator",
+                  value: message.author.user.tag,
                   inline: false,
                 },
                 {
@@ -80,7 +82,7 @@ module.exports = {
               );
               muteSuccess.setColor(0x3366ff);
               member.roles
-                .add("766778409342337084")
+                .add(mutedRole)
                 .then(() => {
                   message.channel.send(muteSuccess).then((msg) =>
                     msg.delete({
@@ -93,7 +95,7 @@ module.exports = {
                 })
                 .then(() => {
                   message.guild.channels.cache
-                    .find((c) => c.name === "—mod-log—")
+                    .find((c) => c.id === "769609262636335144")
                     .send(muteLogEmbed);
                 })
                 .catch((err) => {
@@ -115,7 +117,7 @@ module.exports = {
                 },
                 {
                   name: "Moderator Responsible",
-                  value: message.author.username,
+                  value: message.author.user.tag,
                   inline: false,
                 },
                 {
@@ -147,24 +149,12 @@ module.exports = {
                     })
                   );
                   setTimeout(function () {
-                    if (!member.roles.cache.has(mutedRole)) {
-                      return;
-                    } else {
-                      member.roles.remove(mutedRole);
-                      message.guild.channels.cache
-                        .find((c) => c.name === "—mod-log—")
-                        .send(unmuteLogEmbed)
-                        .then((msg) =>
-                          msg.delete({
-                            timeout: 3000,
-                          })
-                        );
-                    }
+                    member.roles.remove(mutedRole);
                   }, ms(time));
                 })
                 .then(() => {
                   message.guild.channels.cache
-                    .find((c) => c.name === "—mod-log—")
+                    .find((c) => c.id === "769609262636335144")
                     .send(muteLogEmbed);
                 })
                 .catch((err) => {
