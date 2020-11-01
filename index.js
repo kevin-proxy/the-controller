@@ -91,7 +91,7 @@ client.on("guildMemberRemove", (member) => {
 
 //event: guildmemberadd (member joins)
 client.on("guildMemberAdd", (member) => {
-  member.roles.add("766033819945271326").catch(console.error);
+  member.roles.add("766033819945271326")
 
   const addMemberEmbed = new Discord.MessageEmbed();
   addMemberEmbed.setTitle(`User joined`);
@@ -109,7 +109,15 @@ client.on("guildMemberAdd", (member) => {
     (ch) => ch.id === "769314874970603590"
   );
   if (!channel) console.log("Event: guildMemberAdd error, no channel found");
-  channel.send(addMemberEmbed);
+  channel.send(addMemberEmbed).then(() =>{
+    const welcomeChannel = member.guild.channels.cache.find(
+      (ch) => ch.id = '749626543789178891'
+    )
+    const welcomeEmbed = new Discord.MessageEmbed();
+    welcomeEmbed.setDescription(`Welcome to ${member.guild.name} ${member.mention}! Here, you can find a range of fun bot games including: Dank Memer, Myuu, Unbelievaboat, IdleRPG and more plus a friendly and welcoming community! We hope you enjoy your stay here!`)
+    welcomeEmbed.setColor(0xff3838)
+    welcomeChannel.send(welcomeEmbed)
+  })
 });
 
 //log in
