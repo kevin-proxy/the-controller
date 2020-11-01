@@ -54,7 +54,7 @@ module.exports = {
                   },
                   {
                     name: "Responsible Moderator",
-                    value: message.author.user.tag,
+                    value: message.author.tag,
                     inline: false,
                   },
                   {
