@@ -10,6 +10,8 @@
   "license": "Apache-2.0",
   "dependencies": {
     "discord.js": "^12.4.1",
-    "ms": "^2.1.2"
+    "mongoose": "^5.10.11",
+    "ms": "^2.1.2",
+    "redis": "^3.0.2"
   }
 }

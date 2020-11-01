@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 module.exports = {
   name: "server-info",
-  description: "A command that provides a detailed descriptin of the server",
+  description: "A command that provides a detailed description of the server",
   execute(message, args) {
     const serverEmbed = new Discord.MessageEmbed();
     serverEmbed.setTitle(message.guild.name);
