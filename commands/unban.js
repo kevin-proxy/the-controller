@@ -4,7 +4,7 @@ module.exports = {
   description: "Unban members",
   execute(message, args, errEmbed, approvedEmoji, disapprovedEmoji) {
     const userID = args[0];
-    const bannedUser = bans.find((b) => b.user.id == userID);
+
     const reason = args.slice(1).join(` `);
 
     if (!message.member.hasPermission("BAN_MEMBERS")) {
@@ -20,8 +20,14 @@ module.exports = {
       );
     } else {
       if (userID) {
-        if (bannedUser) {
-          if (reason) {
+        if (reason) {
+          message.guild.fetchBans().then((bans) => {
+            const bannedUser = bans.find((b) => b.user.id == userID);
+            const noMemberEmbed = new Discord.MessageEmbed();
+            noMemberEmbed.setDescription("Cannot find a user with that ID!");
+            noMemberEmbed.setColor(0x3366ff);
+            if (!bannedUser) return message.channel.send(noMemberEmbed);
+            if (bans.size == 0) return;
             message.guild.members
               .unban(bannedUser.user)
               .then(() => {
@@ -64,7 +70,15 @@ module.exports = {
                 );
                 console.error(err);
               });
-          } else {
+          });
+        } else {
+          message.guild.fetchBans().then((bans) => {
+            const bannedUser = bans.find((b) => b.user.id == userID);
+            const noMemberEmbed = new Discord.MessageEmbed();
+            noMemberEmbed.setDescription("Cannot find a user with that ID!");
+            noMemberEmbed.setColor(0x3366ff);
+            if (!bannedUser) return message.channel.send(noMemberEmbed);
+            if (bans.size == 0) return;
             message.guild.members
               .unban(bannedUser.user)
               .then(() => {
@@ -107,12 +121,7 @@ module.exports = {
                 );
                 console.error(err);
               });
-          }
-        } else {
-          const noMemberEmbed = new Discord.MessageEmbed();
-          noMemberEmbed.setDescription("Cannot find a user with that ID!");
-          noMemberEmbed.setColor(0x3366ff);
-          message.channel.send(noMemberEmbed);
+          });
         }
       } else {
         const noIdEmbed = new Discord.MessageEmbed();
