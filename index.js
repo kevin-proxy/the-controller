@@ -115,9 +115,9 @@ client.on("guildMemberAdd", (member) => {
     );
     const welcomeEmbed = new Discord.MessageEmbed();
     welcomeEmbed.setDescription(
-      `Welcome to ${member.guild.name} <@${member}>! Here, you can find a range of fun bot games including: Dank Memer, Myuu, Unbelievaboat, IdleRPG and more plus a friendly and welcoming community! We hope you enjoy your stay here!`
+      `Welcome to ${member.guild.name} ${member}! Here, you can find a range of fun bot games including: Dank Memer, Myuu, Unbelievaboat, IdleRPG and more plus a friendly and welcoming community! We hope you enjoy your stay here!`
     );
-    welcomeEmbed.setColor(0xff3838);
+    welcomeEmbed.setColor(0x3366ff);
     welcomeChannel.send(welcomeEmbed);
   });
 });
