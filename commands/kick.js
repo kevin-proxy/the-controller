@@ -60,7 +60,7 @@ module.exports = {
                     },
                     {
                       name: "Reason",
-                      value: Unspecified,
+                      value: reason,
                       inline: false,
                     }
                   );
@@ -107,7 +107,7 @@ module.exports = {
                     },
                     {
                       name: "Reason",
-                      value: reason,
+                      value: "Unspecified",
                       inline: false,
                     }
                   );
