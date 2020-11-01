@@ -1,4 +1,3 @@
-const Discord = require("discord.js");
 module.exports = {
   name: "ping",
   description: "A useless, basic ping command",

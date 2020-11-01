@@ -82,10 +82,10 @@ client.on("guildMemberRemove", (member) => {
     `Current member count: ${member.guild.memberCount}`
   );
 
-  const channel = member.guild.channels.cache
-    .find((ch) => ch.id === "—join-leave-log—")
-    .send(removeMemberEmbed);
-  if (!channel) console.log("No channel found");
+  const channel = member.guild.channels.cache.find(
+    (ch) => ch.id === "769314874970603590"
+  );
+  if (!channel) console.log("Event: guildMemberRemove error, no channel found");
   channel.send(removeMemberEmbed);
 });
 
@@ -105,10 +105,10 @@ client.on("guildMemberAdd", (member) => {
   );
   addMemberEmbed.setFooter(`Current member count: ${member.guild.memberCount}`);
 
-  const channel = member.guild.channels.cache
-    .find((ch) => ch.id === "—join-leave-log—")
-    .send(removeMemberEmbed);
-  if (!channel) console.log("No channel found");
+  const channel = member.guild.channels.cache.find(
+    (ch) => ch.id === "769314874970603590"
+  );
+  if (!channel) console.log("Event: guildMemberAdd error, no channel found");
   channel.send(addMemberEmbed);
 });
 

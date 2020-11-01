@@ -28,7 +28,9 @@ module.exports = {
             `${disapprovedEmoji} You cannot mute a member of staff!`
           );
           isStaffEmbed.setColor(0x3366ff);
-          return message.channel.send(isStaffEmbed);
+          return message.channel
+            .send(isStaffEmbed)
+            .then((msg) => msg.delete({ timeout: 3000 }));
         }
         if (!member.roles.cache.has(mutedRole)) {
           if (!time) {

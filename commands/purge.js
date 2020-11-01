@@ -2,11 +2,11 @@ const Discord = require("discord.js");
 module.exports = {
   name: "purge",
   description: "BulkDelete up to 99 messages.",
-  execute(message, args, approvedEmoji) {
+  execute(message, args, approvedEmoji, disapprovedEmoji, errEmbed) {
     if (!message.member.hasPermission("MANAGE_MESSAGES")) {
       const purgePermissionEmbed = new Discord.MessageEmbed();
       purgePermissionEmbed.setDescription(
-        "You do not have permission to purge messages!"
+        `${disapprovedEmoji} You do not have permission to purge messages!`
       );
       purgePermissionEmbed.setColor(0x3366ff);
 
@@ -14,7 +14,7 @@ module.exports = {
     } else if (isNaN(args[0])) {
       const purgeNaNEmbed = new Discord.MessageEmbed();
       purgeNaNEmbed.setDescription(
-        "Please provide a number of messages to purge!"
+        `${disapprovedEmoji} Please provide a number of messages to purge!`
       );
       purgeNaNEmbed.setColor(0x3366ff);
 
@@ -26,7 +26,7 @@ module.exports = {
     } else if (args[0] < 2 || args[0] > 99) {
       const purgeBetweenEmbed = new Discord.MessageEmbed();
       purgeBetweenEmbed.setDescription(
-        "Please provide a number between or equal to 2 and 99!"
+        `${disapprovedEmoji} Please provide a number between or equal to 2 and 99!`
       );
       purgeBetweenEmbed.setColor(0x3366ff);
 
@@ -36,16 +36,11 @@ module.exports = {
         })
       );
     }
-
-    const purgeErrEmbed = new Discord.MessageEmbed();
-    purgeErrEmbed.setDescription("An error occured, please try again later...");
-    purgeErrEmbed.setColor(0x3366ff);
-
     message.channel
       .bulkDelete(parseInt(args[0]) + 1, true)
       .catch((err) => {
         console.error(err);
-        message.channel.send(purgeErrEmbed).then((msg) =>
+        message.channel.send(errEmbed).then((msg) =>
           msg.delete({
             timeout: 3000,
           })
