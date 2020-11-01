@@ -22,7 +22,7 @@ client.on("message", (message) => {
     client.commands.set(command.name, command);
   }
 
-  //neccesary variables
+  //required variables
   const { prefix } = require("./config.json");
   const args = message.content.slice(prefix.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
@@ -38,7 +38,9 @@ client.on("message", (message) => {
   const disapprovedEmoji = client.emojis.cache.find(
     (e) => e.name === "disapproved"
   );
-  const warningEmoji = client.emojis.cache.find((e) => e.name === "warning");
+
+  //other variables
+  let caseCount = 0;
 
   //.catch error embed
   const errEmbed = new Discord.MessageEmbed();
@@ -54,8 +56,8 @@ client.on("message", (message) => {
         args,
         approvedEmoji,
         disapprovedEmoji,
-        warningEmoji,
-        errEmbed
+        errEmbed,
+        caseCount
       );
   } catch (err) {
     console.error(err);
@@ -67,7 +69,7 @@ client.on("message", (message) => {
   }
 });
 
-//event: guildmemberremove (member leaves)
+//event: guildMemberRemove (member leaves)
 client.on("guildMemberRemove", (member) => {
   const removeMemberEmbed = new Discord.MessageEmbed();
   removeMemberEmbed.setTitle("User left");
@@ -89,7 +91,7 @@ client.on("guildMemberRemove", (member) => {
   channel.send(removeMemberEmbed);
 });
 
-//event: guildmemberadd (member joins)
+//event: guildMemberAdd (member joins)
 client.on("guildMemberAdd", (member) => {
   member.roles.add("766033819945271326");
 

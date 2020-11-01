@@ -2,11 +2,9 @@ const Discord = require("discord.js");
 module.exports = {
   name: "unban",
   description: "Unban members",
-  execute(message, args, errEmbed, approvedEmoji, disapprovedEmoji) {
+  execute(message, args, approvedEmoji, disapprovedEmoji, errEmbed, caseCount) {
     const userID = args[0];
-
     const reason = args.slice(1).join(` `);
-
     if (!message.member.hasPermission("BAN_MEMBERS")) {
       const noPermissionEmbed = new Discord.MessageEmbed();
       noPermissionEmbed.setDescription(
@@ -39,23 +37,24 @@ module.exports = {
                 message.channel.send(successEmbed);
               })
               .then(() => {
+                ++caseCount
                 const unbanLogEmbed = new Discord.MessageEmbed();
-                unbanLogEmbed.setTitle("Unban");
+                unbanLogEmbed.setTitle(`Unban | Case ${caseCount}`);
                 unbanLogEmbed.addFields(
                   {
                     name: "ID of unbanned member",
                     value: userID,
-                    inline: true,
+                    inline: false,
                   },
                   {
                     name: "Responsible Moderator",
                     value: message.author.tag,
-                    inline: true,
+                    inline: false,
                   },
                   {
                     name: "Reason",
                     value: reason,
-                    inline: true,
+                    inline: false,
                   }
                 );
                 message.guild.channels.cache
@@ -90,23 +89,24 @@ module.exports = {
                 message.channel.send(successEmbed);
               })
               .then(() => {
+                ++caseCount
                 const unbanLogEmbed = new Discord.MessageEmbed();
-                unbanLogEmbed.setTitle("Unban");
+                unbanLogEmbed.setTitle(`Unban | Case ${caseCount}`);
                 unbanLogEmbed.addFields(
                   {
                     name: "ID of unbanned member",
                     value: userID,
-                    inline: true,
+                    inline: false,
                   },
                   {
                     name: "Responsible Moderator",
                     value: message.author.tag,
-                    inline: true,
+                    inline: false,
                   },
                   {
                     name: "Reason",
                     value: "Unspecified",
-                    inline: true,
+                    inline: false,
                   }
                 );
                 message.guild.channels.cache

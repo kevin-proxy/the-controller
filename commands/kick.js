@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 module.exports = {
   name: "kick",
   description: "Kick members",
-  execute(message, args, approvedEmoji, disapprovedEmoji, errEmbed) {
+  execute(message, args, approvedEmoji, disapprovedEmoji, errEmbed, caseCount) {
     const targetUser = message.mentions.users.first();
     const reason = args.slice(1).join(` `);
     const member = message.guild.member(targetUser);
@@ -45,8 +45,9 @@ module.exports = {
                     .then((msg) => msg.delete({ timeout: 3000 }));
                 })
                 .then(() => {
+                  ++caseCount
                   const logEmbed = new Discord.MessageEmbed();
-                  logEmbed.setTitle("Kick");
+                  logEmbed.setTitle(`Kick | Case ${caseCount}`);
                   logEmbed.addFields(
                     {
                       name: "Offending Member",
@@ -92,8 +93,9 @@ module.exports = {
                     .then((msg) => msg.delete({ timeout: 3000 }));
                 })
                 .then(() => {
+                  ++caseCount
                   const logEmbed = new Discord.MessageEmbed();
-                  logEmbed.setTitle("Kick");
+                  logEmbed.setTitle(`Kick | Case ${caseCount}`);
                   logEmbed.addFields(
                     {
                       name: "Offending Member",
