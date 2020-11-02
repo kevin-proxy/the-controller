@@ -3,10 +3,11 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 global.client = client;
 const fs = require("fs");
+require('dotenv').config();
 
 //event: ready
 client.once("ready", () => {
-  console.log(`Logged in as ${client.user.username}`);
+  console.log(`${client.user.username} is ready`);
   client.user.setActivity("arcade help");
 });
 
@@ -15,15 +16,15 @@ client.on("message", (message) => {
   //configuration
   client.commands = new Discord.Collection();
   const commandFiles = fs
-    .readdirSync("./commands")
+    .readdirSync("./commands/command-files")
     .filter((file) => file.endsWith(".js"));
   for (const file of commandFiles) {
-    const command = require(`./commands/${file}`);
+    const command = require(`./commands/command-files/${file}`);
     client.commands.set(command.name, command);
   }
 
   //required variables
-  const { prefix } = require("./config.json");
+  const prefix = process.env.PREFIX
   const args = message.content.slice(prefix.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
 
