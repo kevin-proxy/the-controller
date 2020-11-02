@@ -48,124 +48,66 @@ module.exports = {
             );
           } else {
             if (!reason) {
-              const muteLogEmbed = new Discord.MessageEmbed();
-              muteLogEmbed.setTitle(`Mute`);
-              muteLogEmbed.addFields(
-                {
-                  name: "Offending Member",
-                  value: `${targetUser.tag} (${member.id})`,
-                  inline: false,
-                },
-                {
-                  name: "Responsible Moderator",
-                  value: message.author.tag,
-                  inline: false,
-                },
-                {
-                  name: "Reason",
-                  value: "Unspecified",
-                  inline: false,
-                },
-                {
-                  name: "Duration",
-                  value: time,
-                  inline: false,
-                }
-              );
-              muteLogEmbed.setColor(0xf5c542);
-              let ms = require("ms");
-              const muteSuccess = new Discord.MessageEmbed();
-              muteSuccess.setDescription(
-                `${approvedEmoji} Successfully muted ${targetUser} for ${ms(
-                  ms(time)
-                )}`
-              );
-              muteSuccess.setColor(0x3366ff);
-              member.roles
-                .add(mutedRole)
-                .then(() => {
-                  message.channel.send(muteSuccess).then((msg) =>
-                    msg.delete({
-                      timeout: 3000,
-                    })
-                  );
-                  setTimeout(function () {
-                    member.roles.remove(mutedRole);
-                  }, ms(time));
-                })
-                .then(() => {
-                  message.guild.channels.cache
-                    .find((c) => c.id === "769609262636335144")
-                    .send(muteLogEmbed);
-                })
-                .catch((err) => {
-                  message.channel.send(errEmbed).then((msg) =>
-                    msg.delete({
-                      timeout: 3000,
-                    })
-                  );
-                  console.error(err);
-                });
-            } else {
-              const muteLogEmbed = new Discord.MessageEmbed();
-              muteLogEmbed.setTitle(`Mute`);
-              muteLogEmbed.addFields(
-                {
-                  name: "Member",
-                  value: `${targetUser.tag} (${member.id})`,
-                  inline: false,
-                },
-                {
-                  name: "Moderator Responsible",
-                  value: message.author.tag,
-                  inline: false,
-                },
-                {
-                  name: "Reason",
-                  value: reason,
-                  inline: false,
-                },
-                {
-                  name: "Duration",
-                  value: time,
-                  inline: false,
-                }
-              );
-              muteLogEmbed.setColor(0xf5c542);
-              let ms = require("ms");
-              const muteSuccess = new Discord.MessageEmbed();
-              muteSuccess.setDescription(
-                `${approvedEmoji} Successfully muted ${targetUser} for ${ms(
-                  ms(time)
-                )}`
-              );
-              muteSuccess.setColor(0x3366ff);
-              member.roles
-                .add("766778409342337084")
-                .then(() => {
-                  message.channel.send(muteSuccess).then((msg) =>
-                    msg.delete({
-                      timeout: 3000,
-                    })
-                  );
-                  setTimeout(function () {
-                    member.roles.remove(mutedRole);
-                  }, ms(time));
-                })
-                .then(() => {
-                  message.guild.channels.cache
-                    .find((c) => c.id === "769609262636335144")
-                    .send(muteLogEmbed);
-                })
-                .catch((err) => {
-                  message.channel.send(errEmbed).then((msg) =>
-                    msg.delete({
-                      timeout: 3000,
-                    })
-                  );
-                  console.error(err);
-                });
+              reason = "Unspecified";
             }
+            const muteLogEmbed = new Discord.MessageEmbed();
+            muteLogEmbed.setTitle(`Mute`);
+            muteLogEmbed.addFields(
+              {
+                name: "Offending Member",
+                value: `${targetUser.tag} (${member.id})`,
+                inline: false,
+              },
+              {
+                name: "Responsible Moderator",
+                value: message.author.tag,
+                inline: false,
+              },
+              {
+                name: "Reason",
+                value: reason,
+                inline: false,
+              },
+              {
+                name: "Duration",
+                value: time,
+                inline: false,
+              }
+            );
+            muteLogEmbed.setColor(0xf5c542);
+            let ms = require("ms");
+            const muteSuccess = new Discord.MessageEmbed();
+            muteSuccess.setDescription(
+              `${approvedEmoji} Successfully muted ${targetUser} for ${ms(
+                ms(time)
+              )}`
+            );
+            muteSuccess.setColor(0x3366ff);
+            member.roles
+              .add(mutedRole)
+              .then(() => {
+                message.channel.send(muteSuccess).then((msg) =>
+                  msg.delete({
+                    timeout: 3000,
+                  })
+                );
+                setTimeout(function () {
+                  member.roles.remove(mutedRole);
+                }, ms(time));
+              })
+              .then(() => {
+                message.guild.channels.cache
+                  .find((c) => c.id === "769609262636335144")
+                  .send(muteLogEmbed);
+              })
+              .catch((err) => {
+                message.channel.send(errEmbed).then((msg) =>
+                  msg.delete({
+                    timeout: 3000,
+                  })
+                );
+                console.error(err);
+              });
           }
         } else {
           const alreadyMutedEmbed = new Discord.MessageEmbed();

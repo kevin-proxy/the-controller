@@ -29,101 +29,55 @@ module.exports = {
             isStaffEmbed.setColor(0x3366ff);
             return message.channel.send(isStaffEmbed);
           } else {
-            if (reason) {
-              member
-                .ban({
-                  reason: reason,
-                })
-                .then(() => {
-                  const banSuccessEmbed = new Discord.MessageEmbed();
-                  banSuccessEmbed.setDescription(
-                    `${approvedEmoji} Successfully banned ${targetUser}`
-                  );
-                  banSuccessEmbed.setColor(0x3366ff);
-                  message.channel
-                    .send(banSuccessEmbed)
-                    .then((msg) => msg.delete({ timeout: 3000 }));
-                })
-                .then(() => {
-                  const banLogEmbed = new Discord.MessageEmbed();
-                  banLogEmbed.setTitle("Ban");
-                  banLogEmbed.addFields(
-                    {
-                      name: "Offending Member",
-                      value: `${targetUser.tag} (${member.id})`,
-                      inline: false,
-                    },
-                    {
-                      name: "Responsible Moderator",
-                      value: message.author.tag,
-                      inline: false,
-                    },
-                    {
-                      name: "Reason",
-                      value: reason,
-                      inline: false,
-                    }
-                  );
-                  message.guild.channels.cache
-                    .find((c) => c.id === "769609262636335144")
-                    .send(banLogEmbed);
-                })
-                .catch((err) => {
-                  message.channel.send(errEmbed).then((msg) =>
-                    msg.delete({
-                      timeout: 3000,
-                    })
-                  );
-                  console.error(err);
-                });
-            } else {
-              member
-                .ban({
-                  reason: reason,
-                })
-                .then(() => {
-                  const banSuccessEmbed = new Discord.MessageEmbed();
-                  banSuccessEmbed.setDescription(
-                    `${approvedEmoji} Successfully banned ${targetUser}`
-                  );
-                  banSuccessEmbed.setColor(0x3366ff);
-                  message.channel
-                    .send(banSuccessEmbed)
-                    .then((msg) => msg.delete({ timeout: 3000 }));
-                })
-                .then(() => {
-                  const banLogEmbed = new Discord.MessageEmbed();
-                  banLogEmbed.setTitle("Ban");
-                  banLogEmbed.addFields(
-                    {
-                      name: "Offending Member",
-                      value: `${targetUser.tag} (${member.id})`,
-                      inline: false,
-                    },
-                    {
-                      name: "Responsible Moderator",
-                      value: message.author.tag,
-                      inline: false,
-                    },
-                    {
-                      name: "Reason",
-                      value: "Unspecified",
-                      inline: false,
-                    }
-                  );
-                  message.guild.channels.cache
-                    .find((c) => c.id === "769609262636335144")
-                    .send(banLogEmbed);
-                })
-                .catch((err) => {
-                  message.channel.send(errEmbed).then((msg) =>
-                    msg.delete({
-                      timeout: 3000,
-                    })
-                  );
-                  console.error(err);
-                });
+            if (!reason) {
+              reason = "Unspecified";
             }
+            member
+              .ban({
+                reason: reason,
+              })
+              .then(() => {
+                const banSuccessEmbed = new Discord.MessageEmbed();
+                banSuccessEmbed.setDescription(
+                  `${approvedEmoji} Successfully banned ${targetUser}`
+                );
+                banSuccessEmbed.setColor(0x3366ff);
+                message.channel
+                  .send(banSuccessEmbed)
+                  .then((msg) => msg.delete({ timeout: 3000 }))
+                  .then(() => {
+                    const banLogEmbed = new Discord.MessageEmbed();
+                    banLogEmbed.setTitle("Ban");
+                    banLogEmbed.addFields(
+                      {
+                        name: "Offending Member",
+                        value: `${targetUser.tag} (${member.id})`,
+                        inline: false,
+                      },
+                      {
+                        name: "Responsible Moderator",
+                        value: message.author.tag,
+                        inline: false,
+                      },
+                      {
+                        name: "Reason",
+                        value: reason,
+                        inline: false,
+                      }
+                    );
+                    message.guild.channels.cache
+                      .find((c) => c.id === "769609262636335144")
+                      .send(banLogEmbed);
+                  });
+              })
+              .catch((err) => {
+                message.channel.send(errEmbed).then((msg) =>
+                  msg.delete({
+                    timeout: 3000,
+                  })
+                );
+                console.error(err);
+              });
           }
         } else {
           const banNoMemberEmbed = new Discord.MessageEmbed();

@@ -32,7 +32,9 @@ module.exports = {
         inline: true,
       },
       {
-        name: "",
+        name: "Channel count", 
+        value: "unavailable",
+        inline: true
       }
     );
     serverEmbed.setColor(0x3366ff);

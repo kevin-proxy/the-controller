@@ -6,7 +6,7 @@ module.exports = {
     const commandsEmbed = new Discord.MessageEmbed();
     commandsEmbed.setTitle("Help is here!");
     commandsEmbed.setDescription(
-      "To get a detailed description of a command, execute: `arcade command-info <command>` e.g. `arcade command-info dice-roll`\n\nThis bot's prefix is `arcade`"
+      "To get a detailed description of a command, execute: `arcade command-info <command>` e.g. `arcade command-info dice-roll`\n\nThe prefix of this bot is `arcade`"
     );
     commandsEmbed.addFields(
       {
@@ -23,7 +23,7 @@ module.exports = {
       {
         name: "Informative",
         value:
-          "`user-info`, `server-info`, `command-info`, `channel-info`, `help`",
+          "`user-info`, `server-info`, `command-info`, `help`",
         inline: false,
       }
     );

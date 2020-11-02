@@ -28,7 +28,7 @@ module.exports = {
         "I will build a great, great wall on our southern border, and I will have Mexico pay for that wall. Mark my words.",
         "I will be phenomenal to the women. I mean, I want to help women.",
         "Climate change is a myth!",
-        "TARRIFS!",
+        "TARIFFS!",
       ];
       return replies[Math.floor(Math.random() * replies.length)];
     }

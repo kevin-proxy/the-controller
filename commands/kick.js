@@ -4,7 +4,7 @@ module.exports = {
   description: "Kick members",
   execute(message, args, approvedEmoji, disapprovedEmoji, errEmbed, caseCount) {
     const targetUser = message.mentions.users.first();
-    const reason = args.slice(1).join(` `);
+    let reason = args.slice(1).join(` `);
     const member = message.guild.member(targetUser);
 
     if (!message.member.hasPermission("KICK_MEMBERS")) {
@@ -29,103 +29,56 @@ module.exports = {
             isStaffEmbed.setColor(0x3366ff);
             return message.channel.send(isStaffEmbed);
           } else {
-            if (reason) {
-              member
-                .kick({
-                  reason: reason,
-                })
-                .then(() => {
-                  const successEmbed = new Discord.MessageEmbed();
-                  successEmbed.setDescription(
-                    `${approvedEmoji} Successfully kicked ${targetUser}`
-                  );
-                  successEmbed.setColor(0x3366ff);
-                  message.channel
-                    .send(successEmbed)
-                    .then((msg) => msg.delete({ timeout: 3000 }));
-                })
-                .then(() => {
-                  ++caseCount
-                  const logEmbed = new Discord.MessageEmbed();
-                  logEmbed.setTitle(`Kick | Case ${caseCount}`);
-                  logEmbed.addFields(
-                    {
-                      name: "Offending Member",
-                      value: `${targetUser.tag} (${member.id})`,
-                      inline: false,
-                    },
-                    {
-                      name: "Responsible Moderator",
-                      value: message.author.tag,
-                      inline: false,
-                    },
-                    {
-                      name: "Reason",
-                      value: reason,
-                      inline: false,
-                    }
-                  );
-                  message.guild.channels.cache
-                    .find((c) => c.id === "769609262636335144")
-                    .send(logEmbed);
-                })
-                .catch((err) => {
-                  message.channel.send(errEmbed).then((msg) =>
-                    msg.delete({
-                      timeout: 3000,
-                    })
-                  );
-                  console.error(err);
-                });
-            } else {
-              member
-                .kick({
-                  reason: reason,
-                })
-                .then(() => {
-                  const successEmbed = new Discord.MessageEmbed();
-                  successEmbed.setDescription(
-                    `${approvedEmoji} Successfully kicked ${targetUser}`
-                  );
-                  successEmbed.setColor(0x3366ff);
-                  message.channel
-                    .send(successEmbed)
-                    .then((msg) => msg.delete({ timeout: 3000 }));
-                })
-                .then(() => {
-                  ++caseCount
-                  const logEmbed = new Discord.MessageEmbed();
-                  logEmbed.setTitle(`Kick | Case ${caseCount}`);
-                  logEmbed.addFields(
-                    {
-                      name: "Offending Member",
-                      value: `${targetUser.tag} (${member.id})`,
-                      inline: false,
-                    },
-                    {
-                      name: "Responsible Moderator",
-                      value: message.author.tag,
-                      inline: false,
-                    },
-                    {
-                      name: "Reason",
-                      value: "Unspecified",
-                      inline: false,
-                    }
-                  );
-                  message.guild.channels.cache
-                    .find((c) => c.id === "769609262636335144")
-                    .send(logEmbed);
-                })
-                .catch((err) => {
-                  message.channel.send(errEmbed).then((msg) =>
-                    msg.delete({
-                      timeout: 3000,
-                    })
-                  );
-                  console.error(err);
-                });
+            if (!reason) {
+              reason = "Unspecified";
             }
+            member
+              .kick({
+                reason: reason,
+              })
+              .then(() => {
+                const successEmbed = new Discord.MessageEmbed();
+                successEmbed.setDescription(
+                  `${approvedEmoji} Successfully kicked ${targetUser}`
+                );
+                successEmbed.setColor(0x3366ff);
+                message.channel
+                  .send(successEmbed)
+                  .then((msg) => msg.delete({ timeout: 3000 }))
+                  .then(() => {
+                    caseCount = +1;
+                    const logEmbed = new Discord.MessageEmbed();
+                    logEmbed.setTitle(`Kick | Case ${caseCount}`);
+                    logEmbed.addFields(
+                      {
+                        name: "Offending Member",
+                        value: `${targetUser.tag} (${member.id})`,
+                        inline: false,
+                      },
+                      {
+                        name: "Responsible Moderator",
+                        value: message.author.tag,
+                        inline: false,
+                      },
+                      {
+                        name: "Reason",
+                        value: reason,
+                        inline: false,
+                      }
+                    );
+                    message.guild.channels.cache
+                      .find((c) => c.id === "769609262636335144")
+                      .send(logEmbed);
+                  });
+              })
+              .catch((err) => {
+                message.channel.send(errEmbed).then((msg) =>
+                  msg.delete({
+                    timeout: 3000,
+                  })
+                );
+                console.error(err);
+              });
           }
         } else {
           const noMemberEmbed = new Discord.MessageEmbed();
