@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 global.client = client;
 const fs = require("fs");
-require('dotenv').config();
+require("dotenv").config();
 
 //event: ready
 client.once("ready", () => {
@@ -13,7 +13,7 @@ client.once("ready", () => {
 
 //event: message
 client.on("message", (message) => {
-  //configuration
+  //file configuration
   client.commands = new Discord.Collection();
   const commandFiles = fs
     .readdirSync("./commands/command-files")
@@ -24,9 +24,27 @@ client.on("message", (message) => {
   }
 
   //required variables
-  const prefix = process.env.PREFIX
+  const prefix = process.env.PREFIX;
   const args = message.content.slice(prefix.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
+
+  //global variables
+  const targetUserMention = message.mentions.users.first();
+  global.targetUserMention = targetUserMention
+  const memberOfMention = message.guild.member(targetUserMention)
+  global.memberOfMention = memberOfMention
+  const author = message.author
+  global.author = author
+  const memberOfAuthor = message.guild.member(author)
+  global.memberOfAuthor = memberOfAuthor
+  const behindArgsZero = args.slice(0).join(' ')
+  global.behindArgsZero = behindArgsZero
+  const behindArgsOne = args.slice(1).join(' ')
+  global.behindArgsOne = behindArgsOne
+  const behindArgsTwo = args.slice(2).join(' ')
+  global.behindArgsTwo = behindArgsTwo
+  const behindArgsThree = args.slice(3).join(' ')
+  global.behindArgsThree = behindArgsThree
 
   //checkpoint
   if (!message.content.startsWith(prefix) || message.author.bot) return;
@@ -36,30 +54,22 @@ client.on("message", (message) => {
 
   //emojis
   const approvedEmoji = client.emojis.cache.find((e) => e.name === "approved");
+  global.approvedEmoji = approvedEmoji
   const disapprovedEmoji = client.emojis.cache.find(
     (e) => e.name === "disapproved"
   );
-
-  //other variables
-  let caseCount = 0;
+  global.disapprovedEmoji = disapprovedEmoji
 
   //.catch error embed
   const errEmbed = new Discord.MessageEmbed();
   errEmbed.setDescription(`Something went wrong, try again later...`);
   errEmbed.setColor(0x3366ff);
+  global.errEmbed = errEmbed
 
   //command handler
   try {
-    client.commands
-      .get(command)
-      .execute(
-        message,
-        args,
-        approvedEmoji,
-        disapprovedEmoji,
-        errEmbed,
-        caseCount
-      );
+    client.commands.get(command).execute(message, args);
+    console.log(`Executing command: ${command}`)
   } catch (err) {
     console.error(err);
     message.channel.send(errEmbed).then((msg) =>

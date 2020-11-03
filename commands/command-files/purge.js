@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 module.exports = {
   name: "purge",
   description: "BulkDelete up to 99 messages.",
-  execute(message, args, approvedEmoji, disapprovedEmoji, errEmbed) {
+  execute(message, args) {
     if (!message.member.hasPermission("MANAGE_MESSAGES")) {
       const purgePermissionEmbed = new Discord.MessageEmbed();
       purgePermissionEmbed.setDescription(

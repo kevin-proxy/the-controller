@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 module.exports = {
   name: "help",
   description: "Lists all the possible commands with this bot",
-  execute(message) {
+  execute(message, args) {
     const commandsEmbed = new Discord.MessageEmbed();
     commandsEmbed.setTitle("Help is here!");
     commandsEmbed.setDescription(

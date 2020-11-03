@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 module.exports = {
   name: "dice-roll",
   description: "Rolls two 6 faced dice",
-  execute(message) {
+  execute(message, args) {
     function firstDie() {
       var dieOne = Math.floor(Math.random() * 6) + 1;
       return dieOne;

@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 module.exports = {
   name: "unban",
   description: "Unban members",
-  execute(message, args, approvedEmoji, disapprovedEmoji, errEmbed, caseCount) {
+  execute(message, args) {
     const userID = args[0];
     const reason = args.slice(1).join(` `);
     if (!message.member.hasPermission("BAN_MEMBERS")) {

@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 module.exports = {
   name: "mute",
   description: "A command that mutes people",
-  execute(message, args, approvedEmoji, disapprovedEmoji, errEmbed) {
+  execute(message, args) {
     const targetUser = message.mentions.users.first();
     const mutedRole = message.guild.roles.cache.find(
       (r) => r.id === "766778409342337084"

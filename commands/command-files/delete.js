@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 module.exports = {
   name: "delete",
   description: "deletes a single message",
-  execute(message, errEmbed, ) {
+  execute(message, args) {
     if (!message.member.hasPermission('MANAGE_MESSAGES')){
       const noPermissionEmbed = new Discord.MessageEmbed();
       noPermissionEmbed.setDescription('You do not have permission to delete messages!')

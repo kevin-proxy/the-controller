@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 module.exports = {
   name: "user-info",
   description: "Displays information of a user",
-  execute(message) {
+  execute(message, args) {
     const targetUser = message.mentions.users.first();
     const member = message.guild.member(targetUser);
     const authorMember = message.guild.member(message.author);

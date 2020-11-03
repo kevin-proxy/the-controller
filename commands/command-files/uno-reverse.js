@@ -1,10 +1,10 @@
 const Discord = require("discord.js");
 module.exports = {
   name: "uno-reverse",
-  description: "Lol get uno reversed",
-  execute(message) {
+  description: "A fun command that sends an image of an uno reverse card. You can choose who to uno reverse.",
+  execute(message, args) {
     const unoUrselfEmbed = new Discord.MessageEmbed();
-    unoUrselfEmbed.setDescription("Dumbass, you just uno reversed yourself");
+    unoUrselfEmbed.setDescription("Stupid, you just uno reversed yourself");
     unoUrselfEmbed.setImage("https://i.imgur.com/WUX7tbB.png");
     unoUrselfEmbed.setColor(0x3366ff);
 
