@@ -65,11 +65,18 @@ module.exports = {
       .then(() => {
         const logEmbed = new Discord.MessageEmbed();
         logEmbed.setTitle(`Purge`);
-        logEmbed.addFields({
-          name: "Responsible Moderator",
-          value: message.author.tag,
-          inline: false,
-        });
+        logEmbed.addFields(
+          {
+            name: "Responsible Moderator",
+            value: message.author.tag,
+            inline: false,
+          },
+          {
+            name: "Message count",
+            value: args[0],
+            inline: false,
+          }
+        );
         logEmbed.setColor(0xf5c542);
         message.guild.channels.cache
           .find((c) => c.id === "769609262636335144")
