@@ -61,6 +61,18 @@ module.exports = {
       })
       .catch((err) => {
         console.error(err);
+      })
+      .then(() => {
+        const logEmbed = new Discord.MessageEmbed();
+        logEmbed.setTitle(`Purge`);
+        logEmbed.addFields({
+          name: "Responsible Moderator",
+          value: message.author.tag,
+          inline: false,
+        });
+        logEmbed.setColor(0xf5c542);
+        message.guild.channels.cache.find((c) => c.id === "769609262636335144")
+          .send;
       });
   },
 };
