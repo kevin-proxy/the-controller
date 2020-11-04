@@ -71,8 +71,9 @@ module.exports = {
           inline: false,
         });
         logEmbed.setColor(0xf5c542);
-        message.guild.channels.cache.find((c) => c.id === "769609262636335144")
-          .send;
+        message.guild.channels.cache
+          .find((c) => c.id === "769609262636335144")
+          .send(logEmbed);
       });
   },
 };
