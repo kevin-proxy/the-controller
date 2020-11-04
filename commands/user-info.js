@@ -58,7 +58,7 @@ module.exports = {
         }
       );
       userInfoEmbed.setFooter(`Requested by ${message.author.username}`);
-      userInfoEmbed.setTimestamp;
+      userInfoEmbed.setTimestamp();
 
       message.channel.send(userInfoEmbed);
     }
