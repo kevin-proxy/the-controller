@@ -50,8 +50,10 @@ client.on("message", (message) => {
 
   //command handler
   try {
-    client.commands.get(command).execute(message, args);
-    console.log(`Executing command: ${command}`);
+    message.delete().then(() => {
+      client.commands.get(command).execute(message, args);
+      console.log(`Executing command: ${command}`);
+    });
   } catch (err) {
     console.error(err);
     message.channel.send(errEmbed).then((msg) =>
