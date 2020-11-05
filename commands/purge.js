@@ -36,51 +36,61 @@ module.exports = {
         })
       );
     }
-    message.channel
-      .bulkDelete(parseInt(args[0]) + 1, true)
-      .catch((err) => {
-        console.error(err);
-        message.channel.send(errEmbed).then((msg) =>
-          msg.delete({
-            timeout: 3000,
+    //const fetchedMessages = await
+    message.channel.messages
+      .fetch({ limit: args[0] })
+      .then((fetchedMessages) => {
+        message.channel
+          .bulkDelete(fetchedMessages, true)
+          .catch((err) => {
+            console.error(err);
+            message.channel.send(errEmbed).then((msg) =>
+              msg.delete({
+                timeout: 3000,
+              })
+            );
           })
-        );
-      })
-      .then(() => {
-        const purgeSuccessEmbed = new Discord.MessageEmbed();
-        purgeSuccessEmbed.setDescription(
-          `${approvedEmoji} Successfully purged ${args[0]} messages!`
-        );
-        purgeSuccessEmbed.setColor(0x3366ff);
+          .then(() => {
+            const purgeSuccessEmbed = new Discord.MessageEmbed();
+            purgeSuccessEmbed.setDescription(
+              `${approvedEmoji} Successfully purged ${fetchedMessages.size} messages!`
+            );
+            purgeSuccessEmbed.setColor(0x3366ff);
 
-        message.channel.send(purgeSuccessEmbed).then((msg) =>
-          msg.delete({
-            timeout: 3000,
+            message.channel.send(purgeSuccessEmbed).then((msg) =>
+              msg.delete({
+                timeout: 3000,
+              })
+            );
           })
-        );
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-      .then(() => {
-        const logEmbed = new Discord.MessageEmbed();
-        logEmbed.setTitle(`Purge`);
-        logEmbed.addFields(
-          {
-            name: "Responsible Moderator",
-            value: message.author.tag,
-            inline: false,
-          },
-          {
-            name: "Message count",
-            value: args[0],
-            inline: false,
-          }
-        );
-        logEmbed.setColor(0xf5c542);
-        message.guild.channels.cache
-          .find((c) => c.id === "769609262636335144")
-          .send(logEmbed);
+          .catch((err) => {
+            console.error(err);
+          })
+          .then(() => {
+            const logEmbed = new Discord.MessageEmbed();
+            logEmbed.setTitle(`Purge`);
+            logEmbed.addFields(
+              {
+                name: "Responsible Moderator",
+                value: message.author.tag,
+                inline: false,
+              },
+              {
+                name: "Message count",
+                value: fetchedMessages.size,
+                inline: false,
+              },
+              {
+                name: "Channel",
+                value: message.channel.name,
+                inline: false,
+              }
+            );
+            logEmbed.setColor(0xf5c542);
+            message.guild.channels.cache
+              .find((c) => c.id === "769609262636335144")
+              .send(logEmbed);
+          });
       });
   },
 };
