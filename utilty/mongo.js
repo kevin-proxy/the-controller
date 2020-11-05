@@ -1,6 +1,6 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
-const mongoPath =
-  "mongodb+srv://proxy:KCMmongodb0312abc@the-controller.ykmyk.mongodb.net/the-controller?retryWrites=true&w=majority";
+const mongoPath = process.env.MONGO_PATH;
 
 module.exports = async () => {
   await mongoose.connect(mongoPath, {

@@ -4,71 +4,106 @@ module.exports = {
   description: "A command that unmutes people",
   execute(message, args) {
     const targetUser = message.mentions.users.first();
-    const member = message.guild.member(targetUser);
-    const reason = args.slice(100).join(` `);
-
-    const unmuteSuccess = new Discord.MessageEmbed();
-    unmuteSuccess.setDescription(`Successfully unmuted ${targetUser}`);
-    unmuteSuccess.setColor(0x3366ff);
-
-    const errorEmbed = new Discord.MessageEmbed();
-    errorEmbed.setDescription("An error occured, please try again later...");
-    errorEmbed.setColor(0x3366ff);
-
-    const argsEmbed = new Discord.MessageEmbed();
-    argsEmbed.setDescription("Please mention a user to unmute!");
-    argsEmbed.setColor(0x3366ff);
-
-    const permissionEmbed = new Discord.MessageEmbed();
-    permissionEmbed.setDescription(
-      "You do not have permission to unmute members!"
+    const mutedRole = message.guild.roles.cache.find(
+      (r) => r.name === "Muted"
     );
-    permissionEmbed.setColor(0x3366ff);
-
-    const notMutedEmbed = new Discord.MessageEmbed();
-    notMutedEmbed.setDescription("That user is not muted!");
-    notMutedEmbed.setColor(0x3366ff);
+    const member = message.guild.member(targetUser);
+    const time = args[1];
+    let reason = args.slice(2).join(` `);
 
     if (!message.member.hasPermission("MUTE_MEMBERS")) {
-      return message.channel.send(permissionEmbed).then((msg) =>
+      const permissionEmbed = new Discord.MessageEmbed();
+      permissionEmbed.setDescription(
+        `${disapprovedEmoji} You do not have permission to unmute members!`
+      );
+      permissionEmbed.setColor(0x3366ff);
+      message.channel.send(permissionEmbed).then((msg) =>
         msg.delete({
           timeout: 3000,
         })
       );
-    }
-
-    if (targetUser) {
-      if (member.roles.cache.has("766778409342337084")) {
-        member.roles
-          .remove("766778409342337084")
-          .then(() => {
-            message.channel.send(unmuteSuccess).then((msg) =>
-              msg.delete({
-                timeout: 3000,
-              })
-            );
-          })
-          .catch((err) => {
-            message.channel.send(errorEmbed).then((msg) =>
-              msg.delete({
-                timeout: 3000,
-              })
-            );
-            console.error(err);
-          });
+    } else {
+      if (targetUser) {
+        if (!!member.roles.cache.has(mutedRole)) {
+          if (!reason) {
+            reason = "Unspecified";
+          }
+          const muteLogEmbed = new Discord.MessageEmbed();
+          muteLogEmbed.setTitle(`Unmute`);
+          muteLogEmbed.addFields(
+            {
+              name: "Offending Member",
+              value: `${targetUser.tag} (${member.id})`,
+              inline: false,
+            },
+            {
+              name: "Responsible Moderator",
+              value: message.author.tag,
+              inline: false,
+            },
+            {
+              name: "Reason",
+              value: reason,
+              inline: false,
+            },
+          );
+          muteLogEmbed.setColor(0xf5a020);
+          muteLogEmbed.setTimestamp();
+          const muteSuccess = new Discord.MessageEmbed();
+          muteSuccess.setDescription(
+            `${approvedEmoji} Successfully unmuted ${targetUser}
+            )}`
+          );
+          muteSuccess.setColor(0x3366ff);
+          member.roles
+            .remove(mutedRole)
+            .then(() => {
+              message.channel.send(muteSuccess).then((msg) =>
+                msg.delete({
+                  timeout: 3000,
+                })
+              );
+              setTimeout(function () {
+                member.roles.remove(mutedRole);
+              }, ms(time));
+            })
+            .then(() => {
+              message.guild.channels.cache
+                .find((c) => c.id === "769609262636335144")
+                .send(muteLogEmbed);
+            })
+            .catch((err) => {
+              message.channel.send(errEmbed).then((msg) =>
+                msg.delete({
+                  timeout: 3000,
+                })
+              );
+              console.error(err);
+            });
+        } else {
+          const alreadyMutedEmbed = new Discord.MessageEmbed();
+          alreadyMutedEmbed.setDescription(
+            `${disapprovedEmoji} That user is not muted!`
+          );
+          alreadyMutedEmbed.setColor(0x3366ff);
+          message.channel.send(alreadyMutedEmbed).then((msg) =>
+            msg.delete({
+              timeout: 3000,
+            })
+          );
+        }
       } else {
-        message.channel.send(notMutedEmbed).then((msg) =>
+        const noMentionEmbed = new Discord.MessageEmbed();
+        noMentionEmbed.setDescription(
+          `${disapprovedEmoji} Please mention a user to unmute!`
+        );
+        noMentionEmbed.setColor(0x3366ff);
+        message.channel.send(noMentionEmbed).then((msg) =>
           msg.delete({
             timeout: 3000,
           })
         );
       }
-    } else {
-      message.channel.send(argsEmbed).then((msg) =>
-        msg.delete({
-          timeout: 3000,
-        })
-      );
     }
   },
 };

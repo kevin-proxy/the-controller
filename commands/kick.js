@@ -66,6 +66,7 @@ module.exports = {
                       }
                     );
                     logEmbed.setColor(0xc93838)
+                    logEmbed.setTimestamp();
                     message.guild.channels.cache
                       .find((c) => c.id === "769609262636335144")
                       .send(logEmbed);

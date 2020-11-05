@@ -76,7 +76,7 @@ module.exports = {
                 inline: false,
               },
               {
-                name: "Message count",
+                name: "Number of messages deleted",
                 value: fetchedMessages.size,
                 inline: false,
               },
@@ -87,6 +87,7 @@ module.exports = {
               }
             );
             logEmbed.setColor(0xf5c542);
+            logEmbed.setTimestamp();
             message.guild.channels.cache
               .find((c) => c.id === "769609262636335144")
               .send(logEmbed);

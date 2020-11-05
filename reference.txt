@@ -1,7 +1,10 @@
 Embed colour references:
-
+------------------------
 main colour: 0x3366ff
-severe punishment colour: 0xc93838
-mild punishment colour: 0xf5c542
+high severity punishment colour: 0xc93838
+medium severity punishment colour: 0xf5a020
+mild severity punishment colour: 0xf5c542
 free from punishment colour: 0x87f558
 
+*NOTE: this file is for my own use, if you would like a description of my
+       repository, go to the README.
