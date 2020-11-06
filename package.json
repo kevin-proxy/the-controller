@@ -9,11 +9,24 @@
   "author": "Kevin Cheung",
   "license": "Apache-2.0",
   "dependencies": {
+    "@discordjs/opus": "^0.3.3",
+    "axios": "^0.21.0",
+    "chart.js": "^2.9.4",
+    "chartjs-node-canvas": "^3.0.6",
+    "commando-provider-mongo": "^1.1.1",
     "discord.js": "^12.4.1",
     "discord.js-commando": "^0.10.0",
     "dotenv": "^8.2.0",
+    "module-alias": "^2.2.2",
     "mongoose": "^5.10.11",
     "ms": "^2.1.2",
     "redis": "^3.0.2"
+  },
+  "_moduleAliases": {
+    "@root": ".",
+    "@schemas": "./schemas",
+    "@util": "./utility",
+    "@features": "./features/feature-files",
+    "@commands": "./commands/command"
   }
 }
