@@ -122,29 +122,26 @@ client.on("guildMemberAdd", (member) => {
 //log in
 client.login(process.env.BOT_TOKEN);*/
 
-require('module-alias/register')
-require("dotenv").config()
+require("module-alias/register");
+require("dotenv").config();
 
-// const Discord = require('discord.js')
-// const client = new Discord.Client()
+const { MongoClient } = require("mongodb");
+const MongoDBProvider = require("commando-provider-mongo");
+const path = require("path");
+const { CommandoClient } = require("discord.js-commando");
+const loadCommands = require("@root/commands/load-commands");
+const commandBase = require("@root/commands/command-base");
+const loadFeatures = require("@root/features/load-features");
+const mongo = require("@util/mongo");
 
-const { MongoClient } = require('mongodb')
-//const MongoDBProvider = require('commando-provider-mongo')
-const path = require('path')
-const Commando = require('discord.js-commando')
+//const modLogs = require("@features/mod-logs");
 
-//const config = require('@root/config.json')
-const loadCommands = require('@root/commands/load-commands')
-const commandBase = require('@root/commands/command-base')
-const loadFeatures = require('@root/features/load-features')
-const mongo = require('@util/mongo')
-
-const modLogs = require('@features/mod-logs')
-
-const client = new Commando.CommandoClient({
-  owner: '381906626581626880',
+const client = new CommandoClient({
   commandPrefix: process.env.PREFIX,
-})
+  owner: "381906626581626880",
+  invite: "",
+});
+global.client = client
 
 client.setProvider(
   MongoClient.connect(process.env.MONGO_PATH, {
@@ -152,36 +149,35 @@ client.setProvider(
     useFindAndModify: false,
   })
     .then((client) => {
-      return new MongoDBProvider(client, 'WornOffKeys')
+      return new MongoDBProvider(client, "");
     })
     .catch((err) => {
-      console.error(err)
+      console.error(err);
     })
-)
+);
 
-client.on('ready', async () => {
-  console.log('The client is ready!')
+client.once("ready", async () => {
+  console.log(`${client.user.username} is ready`);
+  client.user.setActivity('arcade help')
 
-  await mongo()
+  await mongo();
 
   client.registry
     .registerGroups([
-      ['misc', 'misc commands'],
-      ['moderation', 'moderation commands'],
-      ['economy', 'Commands for the economy system'],
-      ['giveaway', 'Commands to manage giveaways'],
-      ['games', 'Commands to handle games'],
-      ['thanks', 'Commands to help thank people'],
-      ['suggestions', 'Commands regarding suggestions'],
-      ['testing', 'Commands to test joining and leaving'],
+      ["admin", "misc commands"],
+      ["moderation", "moderation commands"],
+      ["misc", "Commands for the economy system"],
+      ["giveaway", "Commands to manage giveaways"],
+      ["informative", "Commands to handle games"],
     ])
     .registerDefaults()
-    .registerCommandsIn(path.join(__dirname, 'cmds'))
-  // commandBase.loadPrefixes(client)
-  // loadCommands(client)
-  loadFeatures(client)
+    .registerCommandsIn(path.join(__dirname, "command-files"));
+  commandBase.loadPrefixes(client);
+  loadCommands(client);
+  loadFeatures(client);
 
-  modLogs(client)
-})
+  //modLogs(client);
+});
 
-client.login(process.env.BOT_TOKEN)
+client.on("error", console.error);
+client.login(process.env.BOT_TOKEN);

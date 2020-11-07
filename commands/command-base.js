@@ -1,6 +1,6 @@
 const commandPrefixSchema = require('@schemas/command-prefix-schema')
-const { PREFIX: globalPrefix } = process.env.BOT_TOKEN
-const guildPrefixes = {} // { 'guildId' : 'prefix' }
+const { PREFIX: globalPrefix } = process.env.PREFIX
+const guildPrefixes = { '714584060671950891' : 'arcade ' }
 
 const validatePermissions = (permissions) => {
   const validPermissions = [

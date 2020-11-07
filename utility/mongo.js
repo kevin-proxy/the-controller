@@ -1,11 +1,12 @@
 require("dotenv").config();
-const mongoose = require("mongoose");
-const mongoPath = process.env.MONGO_PATH;
+const mongoose = require('mongoose')
+const mongoPath = process.env.MONGO_PATH
 
 module.exports = async () => {
-  await mongoose.connect(mongoPath, {
+  mongoose.connect(mongoPath, {
+    keepAlive: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
-  });
-  return mongoose;
-};
+    useFindAndModify: false,
+  })
+}
