@@ -4,7 +4,7 @@ module.exports = (client, triggerText, replyText) => {
       message.channel.type === 'dm' &&
       message.content.toLowerCase() === triggerText.toLowerCase()
     ) {
-      message.author.send(replyText)
+      return;
     }
   })
 }

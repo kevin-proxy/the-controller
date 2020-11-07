@@ -18,7 +18,7 @@
     "discord.js-commando": "git+https://github.com/discordjs/Commando.git",
     "dotenv": "^8.2.0",
     "module-alias": "^2.2.2",
-    "mongoose": "^5.10.11",
+    "mongoose": "^5.10.13",
     "ms": "^2.1.2",
     "redis": "^3.0.2"
   },
@@ -27,6 +27,6 @@
     "@schemas": "./schemas",
     "@util": "./utility",
     "@features": "./features/feature-files",
-    "@commands": "./commands/command"
+    "@commands": "./commands"
   }
 }
