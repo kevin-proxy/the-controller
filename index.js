@@ -8,13 +8,9 @@ const mongo = require("@util/mongo");
 const Discord = require("discord.js");
 const client = new Discord.Client();
 
-const approvedEmoji = client.emojis.cache.find(
-  (e) => e.id === "775106753054244885"
-);
+const approvedEmoji = client.emojis.cache.find((e) => e.name === "approved");
 global.approvedEmoji = approvedEmoji;
-const disapprovedEmoji = client.emojis.cache.find(
-  (e) => e.id === "775106753054244885"
-);
+const disapprovedEmoji = client.emojis.cache.find((e) => e.name === "disapproved");
 global.disapprovedEmoji = disapprovedEmoji;
 
 client.setMaxListeners(30);
