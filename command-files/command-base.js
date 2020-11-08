@@ -2,6 +2,7 @@ const commandPrefixSchema = require("@schemas/command-prefix-schema");
 const globalPrefix = process.env.PREFIX;
 const guildPrefixes = {};
 const Discord = require("discord.js");
+const prettyMs = require("pretty-ms");
 
 const validatePermissions = (permissions) => {
   const validPermissions = [
@@ -75,8 +76,8 @@ module.exports = (client, commandOptions) => {
   }
 
   client.on("message", async (message) => {
-    if (message.channel.type == 'dm') return;
-    
+    if (message.channel.type == "dm") return;
+
     const { member, content, guild, channel } = message;
 
     const prefix = guildPrefixes[guild.id] || globalPrefix;
@@ -125,12 +126,11 @@ module.exports = (client, commandOptions) => {
         let cooldownString = `${guild.id}-${member.id}-${commands[0]}`;
 
         if (cooldown > 0 && recentlyRan.includes(cooldownString)) {
-          const cooldownEmbed = new Discord.MessageEmbed();
-          cooldownEmbed.setDescription(
-            "You cannot use that command so soon, please wait."
+          message.reply(
+            `You cannot use that command so soon, the cooldown for this command is ${prettyMs(
+              cooldown
+            )}`
           );
-          cooldownEmbed.setColor(0x3366ff);
-          message.reply();
           return;
         }
 

@@ -1,8 +1,7 @@
 const Discord = require("discord.js");
 module.exports = {
-  name: "server-info",
-  description: "A command that provides a detailed description of the server",
-  execute(message, args) {
+  commands: "server-info",
+  callback: (message, args) => {
     const serverEmbed = new Discord.MessageEmbed();
     serverEmbed.setTitle(message.guild.name);
     serverEmbed.addFields(
@@ -32,9 +31,9 @@ module.exports = {
         inline: true,
       },
       {
-        name: "Channel count", 
-        value: "unavailable",
-        inline: true
+        name: "Channel count",
+        value: message.guild.channels.cache.size,
+        inline: true,
       }
     );
     serverEmbed.setColor(0x3366ff);

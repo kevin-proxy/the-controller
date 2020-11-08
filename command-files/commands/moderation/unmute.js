@@ -1,12 +1,11 @@
 const Discord = require("discord.js");
 module.exports = {
-  name: "unmute",
-  description: "A command that unmutes people",
-  execute(message, args) {
+  commands: "unmute",
+  expectedArgs: "<user mention> [reason]",
+  minArgs: 2,
+  callback: (message, args) => {
     const targetUser = message.mentions.users.first();
-    const mutedRole = message.guild.roles.cache.find(
-      (r) => r.name === "Muted"
-    );
+    const mutedRole = message.guild.roles.cache.find((r) => r.name === "Muted");
     const member = message.guild.member(targetUser);
     const time = args[1];
     let reason = args.slice(2).join(` `);
@@ -45,7 +44,7 @@ module.exports = {
               name: "Reason",
               value: reason,
               inline: false,
-            },
+            }
           );
           muteLogEmbed.setColor(0xf5a020);
           muteLogEmbed.setTimestamp();

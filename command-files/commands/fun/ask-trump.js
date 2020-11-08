@@ -1,8 +1,9 @@
 const Discord = require("discord.js");
 module.exports = {
-  name: "ask-trump",
-  description: "Ask President Trump any question and he will give you an appropriate answer",
-  execute(message, args) {
+  commands: "ask-trump",
+  expectedArgs: "<question>",
+  minArgs: 2,
+  callback: (message, args) => {
     function askTrump() {
       var replies = [
         "China!",
@@ -23,7 +24,7 @@ module.exports = {
         "I will be phenomenal to the women. I mean, I want to help women.",
         "Climate change is a myth!",
         "TARIFFS!",
-        "I got ligma from Melania lmao"
+        "I got ligma from Melania lmao",
       ];
       return replies[Math.floor(Math.random() * replies.length)];
     }
@@ -39,10 +40,6 @@ module.exports = {
     );
     trumpEmbed.setColor(0x3366ff);
     trumpEmbed.setImage("https://i.imgur.com/3sEhEqa.jpg");
-    if (!args[0]) {
-      message.reply("Give me something to ask trump, stupid");
-    } else {
-      message.reply(trumpEmbed);
-    }
+    message.reply(trumpEmbed);
   },
 };

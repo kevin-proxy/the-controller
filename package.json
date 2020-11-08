@@ -9,16 +9,12 @@
   "author": "Kevin Cheung",
   "license": "Apache-2.0",
   "dependencies": {
-    "@discordjs/opus": "github:discordjs/opus",
-    "axios": "^0.21.0",
-    "chart.js": "^2.9.4",
-    "chartjs-node-canvas": "^3.0.6",
     "discord.js": "^12.4.1",
     "dotenv": "^8.2.0",
     "module-alias": "^2.2.2",
     "mongoose": "^5.10.13",
     "ms": "^2.1.2",
-    "redis": "^3.0.2"
+    "pretty-ms": "^7.0.1"
   },
   "_moduleAliases": {
     "@root": ".",

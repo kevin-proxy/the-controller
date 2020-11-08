@@ -1,5 +1,6 @@
 module.exports = {
   commands: "ping",
+  cooldown: 10000,
   callback: (message, args, text, client) => {
     message.reply("Pinging...").then((resultMessage) => {
       resultMessage.edit(

@@ -1,7 +1,8 @@
 module.exports = {
-  name: "say",
-  description: "repeats what you send",
-  execute(message, args) {
+  commands: "say",
+  expectedArgs: "<repeated text>",
+  minArgs: 2,
+  callback: (message, args) => {
     let say = message.content.split(" ");
     say.shift();
     say.shift();

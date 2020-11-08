@@ -1,8 +1,9 @@
 const Discord = require("discord.js");
 module.exports = {
-  name: "purge",
-  description: "BulkDelete up to 99 messages.",
-  execute(message, args) {
+  commands: "purge",
+  expectedArgs: "<amount>",
+  minArgs: 2,
+  callback: (message, args) => {
     if (!message.member.hasPermission("MANAGE_MESSAGES")) {
       const purgePermissionEmbed = new Discord.MessageEmbed();
       purgePermissionEmbed.setDescription(
@@ -36,7 +37,6 @@ module.exports = {
         })
       );
     }
-    //const fetchedMessages = await
     message.channel.messages
       .fetch({ limit: args[0] })
       .then((fetchedMessages) => {

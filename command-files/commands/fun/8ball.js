@@ -1,7 +1,8 @@
 module.exports = {
-  name: "8ball",
-  description: "It is decidedly so",
-  execute(message, args) {
+  commands: "8ball",
+  expectedArgs: "<question>",
+  minArgs: 2,
+  callback: (message, args, text) => {
     function eightBall() {
       var replies = [
         "As I see it, yes.",
@@ -27,10 +28,6 @@ module.exports = {
       ];
       return replies[Math.floor(Math.random() * replies.length)];
     }
-    if (!args[0]) {
-      message.reply("Give me something to predict, stupid");
-    } else {
-      message.reply(eightBall());
-    }
+    message.reply(eightBall());
   },
 };
