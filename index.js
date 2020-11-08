@@ -20,7 +20,7 @@ global.disapprovedEmoji = disapprovedEmoji;
 client.setMaxListeners(30);
 
 client.on("ready", async () => {
-  console.log(`${client.user.username} is ready`);
+  console.log(`The client is ready`);
   client.user.setActivity("arcade help");
 
   await mongo();
