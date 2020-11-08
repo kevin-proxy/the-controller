@@ -1,14 +1,6 @@
-const Commando = require("discord.js-commando");
-module.exports = class PingCommand extends Commando.Command {
-  constructor(client) {
-    super(client, {
-      name: "test",
-      group: "misc",
-      memberName: "test",
-      description: "A useless ping command",
-    });
-  }
-  async run(message) {
+module.exports = {
+  commands: "ping",
+  callback: (message, args, text, client) => {
     message.reply("Pinging...").then((resultMessage) => {
       resultMessage.edit(
         "**Pong!**\n\nWebSocket Latency: `" +
@@ -20,5 +12,5 @@ module.exports = class PingCommand extends Commando.Command {
           "ms`"
       );
     });
-  }
+  },
 };

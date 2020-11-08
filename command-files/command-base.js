@@ -1,6 +1,6 @@
 const commandPrefixSchema = require("@schemas/command-prefix-schema");
-const { PREFIX: globalPrefix } = process.env.PREFIX;
-const guildPrefixes = { "714584060671950891": "arcade " };
+const globalPrefix = process.env.PREFIX;
+const guildPrefixes = {};
 const Discord = require("discord.js");
 
 const validatePermissions = (permissions) => {
@@ -37,7 +37,6 @@ const validatePermissions = (permissions) => {
     "MANAGE_WEBHOOKS",
     "MANAGE_EMOJIS",
   ];
-
   for (const permission of permissions) {
     if (!validPermissions.includes(permission)) {
       throw new Error(`Unknown permission node "${permission}"`);
@@ -45,7 +44,7 @@ const validatePermissions = (permissions) => {
   }
 };
 
-let recentlyRan = []; // guildId-userId-command
+let recentlyRan = [];
 
 module.exports = (client, commandOptions) => {
   let {
@@ -61,14 +60,12 @@ module.exports = (client, commandOptions) => {
     callback,
   } = commandOptions;
 
-  // Ensure the command and aliases are in an array
   if (typeof commands === "string") {
     commands = [commands];
   }
 
   console.log(`Registering command "${commands[0]}"`);
 
-  // Ensure the permissions are in an array and are all valid
   if (permissions.length) {
     if (typeof permissions === "string") {
       permissions = [permissions];
@@ -77,8 +74,9 @@ module.exports = (client, commandOptions) => {
     validatePermissions(permissions);
   }
 
-  // Listen for messages
   client.on("message", async (message) => {
+    if (message.channel.type == 'dm') return;
+    
     const { member, content, guild, channel } = message;
 
     const prefix = guildPrefixes[guild.id] || globalPrefix;
@@ -86,29 +84,24 @@ module.exports = (client, commandOptions) => {
     for (const alias of commands) {
       const command = `${prefix}${alias.toLowerCase()}`;
 
+      if (message.content == command) {
+        message.delete();
+      }
 
       if (
         content.toLowerCase().startsWith(`${command} `) ||
         content.toLowerCase() === command
       ) {
-        // A command has been ran
-        
-        // Ensure we are in the right channel
         if (requiredChannel && requiredChannel !== channel.name) {
-          //<#ID>
           const foundChannel = guild.channels.cache.find((channel) => {
             return channel.name === requiredChannel;
           });
-          const notRightChannelEmbed = new Discord.MessageEmbed();
-          notRightChannelEmbed.setDescription(
+          message.reply(
             `You can only run this command inside of <#${foundChannel.id}>.`
           );
-          notRightChannelEmbed.setColor(0x3366ff)
-          message.reply(notRightChannelEmbed);
           return;
         }
 
-        // Ensure the user has the required permissions
         for (const permission of permissions) {
           if (!member.hasPermission(permission)) {
             message.reply(permissionError);
@@ -116,7 +109,6 @@ module.exports = (client, commandOptions) => {
           }
         }
 
-        // Ensure the user has the required roles
         for (const requiredRole of requiredRoles) {
           const role = guild.roles.cache.find(
             (role) => role.name === requiredRole
@@ -130,22 +122,22 @@ module.exports = (client, commandOptions) => {
           }
         }
 
-        // Ensure the user has not ran this command too frequently
-        //guildId-userId-command
         let cooldownString = `${guild.id}-${member.id}-${commands[0]}`;
 
         if (cooldown > 0 && recentlyRan.includes(cooldownString)) {
-          message.reply("You cannot use that command so soon, please wait.");
+          const cooldownEmbed = new Discord.MessageEmbed();
+          cooldownEmbed.setDescription(
+            "You cannot use that command so soon, please wait."
+          );
+          cooldownEmbed.setColor(0x3366ff);
+          message.reply();
           return;
         }
 
-        // Split on any number of spaces
         const args = content.split(/[ ]+/);
 
-        // Remove the command which is the first index
         args.shift();
 
-        // Ensure we have the correct number of args
         if (
           args.length < minArgs ||
           (maxArgs !== null && args.length > maxArgs)
@@ -170,7 +162,6 @@ module.exports = (client, commandOptions) => {
           }, 1000 * cooldown);
         }
 
-        // Handle the custom command code
         callback(message, args, args.join(" "), client);
 
         return;
@@ -179,10 +170,6 @@ module.exports = (client, commandOptions) => {
   });
 };
 
-/**
- * I forgot to add this function to the video.
- * It updates the cache when the !setprefix command is ran.
- */
 module.exports.updateCache = (guildId, newPrefix) => {
   guildPrefixes[guildId] = newPrefix;
 };
