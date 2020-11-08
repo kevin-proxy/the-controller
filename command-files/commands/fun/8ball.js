@@ -2,7 +2,7 @@ module.exports = {
   commands: "8ball",
   expectedArgs: "<question>",
   minArgs: 2,
-  callback: (message, args, text) => {
+  callback: (message, args) => {
     function eightBall() {
       var replies = [
         "As I see it, yes.",
