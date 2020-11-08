@@ -162,7 +162,7 @@ module.exports = (client, commandOptions) => {
           }, 1000 * cooldown);
         }
 
-        callback(message, args, args.join(" "), client);
+        callback(message, args, client);
 
         return;
       }
