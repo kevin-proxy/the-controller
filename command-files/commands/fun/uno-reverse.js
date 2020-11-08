@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 module.exports = {
   commands: "uno-reverse",
-  execute: (message, args) => {
+  callback: (message, args) => {
     const unoUrselfEmbed = new Discord.MessageEmbed();
     unoUrselfEmbed.setDescription("Stupid, you just uno reversed yourself");
     unoUrselfEmbed.setImage("https://i.imgur.com/WUX7tbB.png");
