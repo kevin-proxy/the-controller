@@ -1,21 +1,16 @@
 const Discord = require("discord.js");
+const { approvedEmoji } = require("@util/emojis.js")
+const disapprovedEmoji = require("@util/emojis.js")
 module.exports = {
   commands: "purge",
   expectedArgs: "<amount>",
-  minArgs: 2,
+  minArgs: 1,
+  permissions: ["MANAGE_MESSAGES"],
   callback: (message, args) => {
-    if (!message.member.hasPermission("MANAGE_MESSAGES")) {
-      const purgePermissionEmbed = new Discord.MessageEmbed();
-      purgePermissionEmbed.setDescription(
-        `${disapprovedEmoji} You do not have permission to purge messages!`
-      );
-      purgePermissionEmbed.setColor(0x3366ff);
-
-      return message.reply(purgePermissionEmbed);
-    } else if (isNaN(args[0])) {
+    if (isNaN(args[0])) {
       const purgeNaNEmbed = new Discord.MessageEmbed();
       purgeNaNEmbed.setDescription(
-        `${disapprovedEmoji} Please provide a number of messages to purge!`
+        `${disapprovedEmoji} That is not a number!`
       );
       purgeNaNEmbed.setColor(0x3366ff);
 

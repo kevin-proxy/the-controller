@@ -1,7 +1,7 @@
 module.exports = {
   commands: "8ball",
   expectedArgs: "<question>",
-  minArgs: 2,
+  minArgs: 1,
   callback: (message, args) => {
     function eightBall() {
       var replies = [

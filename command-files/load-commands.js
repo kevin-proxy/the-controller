@@ -7,7 +7,8 @@ module.exports = (client) => {
   const commands = [];
 
   const readCommands = (dir) => {
-    const files = fs.readdirSync(path.join(__dirname, dir));
+    const files = fs
+      .readdirSync(path.join(__dirname, dir))
     for (const file of files) {
       const stat = fs.lstatSync(path.join(__dirname, dir, file));
       if (stat.isDirectory()) {
@@ -23,6 +24,13 @@ module.exports = (client) => {
   };
 
   readCommands(".");
-
   return commands;
 };
+/*client.commands = new Discord.Collection();
+const commandFiles = fs
+  .readdirSync("./commands")
+  .filter((file) => file.endsWith(".js"));
+for (const file of commandFiles) {
+  const command = require(`./commands/${file}`);
+  client.commands.set(command.name, command);
+}*/

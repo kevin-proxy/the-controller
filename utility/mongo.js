@@ -9,4 +9,3 @@ module.exports = async () => {
     useFindAndModify: false,
   });
 };
-console.log('Successfully connected to MongoDB')

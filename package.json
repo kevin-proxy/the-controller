@@ -20,7 +20,7 @@
     "@root": ".",
     "@schemas": "./schemas",
     "@util": "./utility",
-    "@features": "./features/feature-files",
+    "@features": "./feature-files/features",
     "@commands": "./commands"
   }
 }

@@ -1,7 +1,4 @@
-const commandPrefixSchema = require("@schemas/command-prefix-schema");
-const globalPrefix = process.env.PREFIX;
-const guildPrefixes = {};
-const Discord = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const prettyMs = require("pretty-ms");
 
 const validatePermissions = (permissions) => {
@@ -38,9 +35,16 @@ const validatePermissions = (permissions) => {
     "MANAGE_WEBHOOKS",
     "MANAGE_EMOJIS",
   ];
+
   for (const permission of permissions) {
     if (!validPermissions.includes(permission)) {
-      throw new Error(`Unknown permission node "${permission}"`);
+      const unkownPermissionNodeEmbed = new MessageEmbed();
+      unkownPermissionNodeEmbed.setTitle("INTERNAL_ERROR");
+      unkownPermissionNodeEmbed.setDescription(
+        `Unknown permission node "${permission}"`
+      );
+      unkownPermissionNodeEmbed.setColor(0x3366ff);
+      throw new Error(unkownPermissionNodeEmbed);
     }
   }
 };
@@ -77,10 +81,11 @@ module.exports = (client, commandOptions) => {
 
   client.on("message", async (message) => {
     if (message.channel.type == "dm") return;
+    if (message.guild.name !== "The Arcade") return;
 
     const { member, content, guild, channel } = message;
 
-    const prefix = guildPrefixes[guild.id] || globalPrefix;
+    const prefix = process.env.PREFIX;
 
     for (const alias of commands) {
       const command = `${prefix}${alias.toLowerCase()}`;
@@ -97,9 +102,12 @@ module.exports = (client, commandOptions) => {
           const foundChannel = guild.channels.cache.find((channel) => {
             return channel.name === requiredChannel;
           });
-          message.reply(
+          const requiredChannelEmbed = new MessageEmbed();
+          requiredChannelEmbed.setDescription(
             `You can only run this command inside of <#${foundChannel.id}>.`
           );
+          requiredChannelEmbed.setColor(0x3366ff);
+          message.reply(requiredChannelEmbed);
           return;
         }
 
@@ -116,9 +124,12 @@ module.exports = (client, commandOptions) => {
           );
 
           if (!role || !member.roles.cache.has(role.id)) {
-            message.reply(
-              `You must have the "${requiredRole}" role to use this command.`
+            const noRoleEmbed = new MessageEmbed();
+            noRoleEmbed.setColor(0x3366ff);
+            noRoleEmbed.setDescription(
+              `You must have the following role: "${requiredRole}" to use this command.`
             );
+            message.reply(noRoleEmbed);
             return;
           }
         }
@@ -126,25 +137,30 @@ module.exports = (client, commandOptions) => {
         let cooldownString = `${guild.id}-${member.id}-${commands[0]}`;
 
         if (cooldown > 0 && recentlyRan.includes(cooldownString)) {
-          message.reply(
+          const onCooldownEmbed = new MessageEmbed();
+          onCooldownEmbed.setDescription(
             `You cannot use that command so soon, the cooldown for this command is ${prettyMs(
               cooldown
             )}`
           );
+          onCooldownEmbed.setColor(0x3366ff);
+          message.reply(onCooldownEmbed);
           return;
         }
 
-        const args = content.split(/[ ]+/);
-
-        args.shift();
+        const args = content.slice(prefix.length).trim().split(/[ ]+/);
 
         if (
           args.length < minArgs ||
           (maxArgs !== null && args.length > maxArgs)
         ) {
-          message.reply(
-            `Syntax error! To use this command properly, use: \`${prefix}${alias} ${expectedArgs}\``
+          const syntaxErrorEmbed = new MessageEmbed();
+          syntaxErrorEmbed.setTitle("SYNTAX_ERROR");
+          syntaxErrorEmbed.setDescription(
+            `Proper usage of this command:\n\`${prefix}${alias} ${expectedArgs}\``
           );
+          syntaxErrorEmbed.setColor(0x3366ff);
+          message.reply(syntaxErrorEmbed);
           return;
         }
 
@@ -161,26 +177,10 @@ module.exports = (client, commandOptions) => {
             console.log("After:", recentlyRan);
           }, 1000 * cooldown);
         }
-
-        callback(message, args, client);
+        callback(message, args, args.join(" "), client);
 
         return;
       }
     }
   });
-};
-
-module.exports.updateCache = (guildId, newPrefix) => {
-  guildPrefixes[guildId] = newPrefix;
-};
-
-module.exports.loadPrefixes = async (client) => {
-  for (const guild of client.guilds.cache) {
-    const guildId = guild[1].id;
-
-    const result = await commandPrefixSchema.findOne({ _id: guildId });
-    guildPrefixes[guildId] = result ? result.prefix : globalPrefix;
-  }
-
-  console.log(guildPrefixes);
 };

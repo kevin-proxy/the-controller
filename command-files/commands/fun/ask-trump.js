@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 module.exports = {
   commands: "ask-trump",
   expectedArgs: "<question>",
-  minArgs: 2,
+  minArgs: 1,
   callback: (message, args) => {
     function askTrump() {
       var replies = [

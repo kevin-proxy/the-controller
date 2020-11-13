@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 module.exports = {
   commands: "coin-flip",
-  callback: (message, args, client) => {
+  callback: (message, args, text, client) => {
     const tails = client.emojis.cache.find((t) => t.name === "tails");
     const heads = client.emojis.cache.find((h) => h.name === "heads");
 
@@ -10,6 +10,6 @@ module.exports = {
       return rand[Math.floor(Math.random() * rand.length)];
     }
 
-    message.reply(doRandHT());
+    message.reply(doRandHT())
   },
 };
