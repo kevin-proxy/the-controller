@@ -24,7 +24,6 @@ module.exports = {
         "I will be phenomenal to the women. I mean, I want to help women.",
         "Climate change is a myth!",
         "TARIFFS!",
-        "I got ligma from Melania lmao",
       ];
       return replies[Math.floor(Math.random() * replies.length)];
     }

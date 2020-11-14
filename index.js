@@ -7,7 +7,7 @@ const mongo = require("@util/mongo");
 const Discord = require("discord.js");
 const client = new Discord.Client();
 
-client.setMaxListeners(30);
+//client.setMaxListeners(30);
 
 client.on("ready", async () => {
   console.log(`The client is ready`);

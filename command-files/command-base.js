@@ -90,7 +90,7 @@ module.exports = (client, commandOptions) => {
     for (const alias of commands) {
       const command = `${prefix}${alias.toLowerCase()}`;
 
-      if (message.content == command) {
+      if (message.content.includes(command)) {
         message.delete();
       }
 
@@ -148,7 +148,8 @@ module.exports = (client, commandOptions) => {
           return;
         }
 
-        const args = content.slice(prefix.length).trim().split(/[ ]+/);
+        const args = content.slice(prefix.length).trim().split(/ +/);
+        args.shift()
 
         if (
           args.length < minArgs ||

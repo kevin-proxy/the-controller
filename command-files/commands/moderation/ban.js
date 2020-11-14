@@ -7,6 +7,8 @@ module.exports = {
     const targetUser = message.mentions.users.first();
     let reason = args.slice(1).join(` `);
     const member = message.guild.member(targetUser);
+    const { approvedEmoji } = require("@util/emojis");
+    const { disapprovedEmoji } = require("@util/emojis");
 
     if (!targetUser) {
       const noMentionEmbed = new Discord.MessageEmbed();

@@ -1,8 +1,9 @@
 module.exports = {
   commands: "say",
   expectedArgs: "<repeated text>",
-  minArgs: 2,
   callback: (message, args) => {
+    if (!args[0])
+      return message.reply("You have to give me something to say silly");
     let say = message.content.split(" ");
     say.shift();
     say.shift();
