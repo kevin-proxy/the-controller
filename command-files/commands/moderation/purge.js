@@ -39,7 +39,7 @@ module.exports = {
           .bulkDelete(fetchedMessages, true)
           .catch((err) => {
             console.error(err);
-            message.channel.send(errEmbed).then((msg) =>
+            message.channel.send("An error occured, try again later").then((msg) =>
               msg.delete({
                 timeout: 3000,
               })
