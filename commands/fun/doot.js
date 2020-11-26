@@ -16,10 +16,7 @@ module.exports = class dootCommand extends (
   async run(message, args) {
     if (!args[2])
       return message.reply("You have to give me two words to doot silly");
-    let say = message.content.split(" ");
-    say.shift();
-    say.shift();
-    say = say.join(" 💀🎺 ");
+    args.join(" 💀🎺 ");
     message.channel.send(say);
   }
 };

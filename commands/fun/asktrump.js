@@ -38,18 +38,15 @@ module.exports = class askTrumpCommand extends (
       ];
       return replies[Math.floor(Math.random() * replies.length)];
     }
-    let myQuestion = message.content.split(" ");
-    myQuestion.shift();
-    myQuestion.shift();
-    myQuestion = myQuestion.join(" ");
-    const trumpEmbed = new MessageEmbed()
+    const embed = new MessageEmbed()
       .setDescription(
         `**${
           message.author.username
-        }:** ${myQuestion}\n\n**Trump:** ${askTrump()}`
+        }:** ${args}\n\n**Trump:** ${askTrump()}`
       )
       .setColor(0x3366ff)
       .setImage("https://i.imgur.com/3sEhEqa.jpg");
-    message.reply(trumpEmbed);
+      
+    message.reply(embed);
   }
 };

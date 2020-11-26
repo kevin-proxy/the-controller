@@ -14,21 +14,16 @@ module.exports = class unoReverseCommand extends (
     });
   }
   async run(message, args) {
-    const unoUrselfEmbed = new MessageEmbed()
-      .setDescription("Stupid, you just uno reversed yourself")
-      .setImage("https://i.imgur.com/WUX7tbB.png")
-      .setColor(0x3366ff);
 
-    const unoEmbed = new MessageEmbed()
+    const embed = new MessageEmbed()
       .setDescription(
-        `Haha ${message.mentions.users.first()}, get uno reversed`
+        message.mentions.users.first()
+          ? `Haha ${message.mentions.users.first()}, get uno reversed`
+          : "Stupid, you just uno reversed yourself"
       )
       .setColor(0x3366ff)
       .setImage("https://i.imgur.com/WUX7tbB.png");
-    if (message.mentions.users.first()) {
-      message.channel.send(unoEmbed);
-    } else {
-      message.channel.send(unoUrselfEmbed);
-    }
+
+    message.channel.send(embed)
   }
 };

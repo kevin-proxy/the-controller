@@ -14,19 +14,14 @@ module.exports = class diceRollCommand extends (
     });
   }
   async run(message, args) {
-    function firstDie() {
+    function die() {
       var dieOne = Math.floor(Math.random() * 6) + 1;
       return dieOne;
     }
 
-    function secondDie() {
-      var dieTwo = Math.floor(Math.random() * 6) + 1;
-      return dieTwo;
-    }
-
     const embed = new MessageEmbed()
       .setDescription(
-        `You rolled a **${firstDie()}** and a **${secondDie()}**!`
+        `You rolled a **${die()}** and a **${die()}**!`
       )
       .setColor(0x3366ff);
 
