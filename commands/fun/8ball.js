@@ -14,7 +14,6 @@ module.exports = class eightBallCommand extends (
   }
 
   async run(message, args) {
-    message.delete()
     if (!args[1]) return message.reply("Give me something to predict silly");
     function eightBall() {
       var replies = [
