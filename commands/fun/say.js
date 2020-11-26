@@ -15,7 +15,7 @@ module.exports = class sayCommand extends (
   async run(message, args) {
     if (!args[1])
       return message.reply("You have to give me something to say silly");
-    let say = args.slice(1).join(` `)
+    let say = args
     message.channel.send(say);
   }
 };
