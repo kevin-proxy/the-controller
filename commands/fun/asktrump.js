@@ -14,7 +14,7 @@ module.exports = class askTrumpCommand extends (
     });
   }
   async run(message, args) {
-    if (args[0]) return message.reply("Give me something to ask trump silly.");
+    if (!args[1]) return message.reply("Give me something to ask trump silly.");
     function askTrump() {
       var replies = [
         "China!",

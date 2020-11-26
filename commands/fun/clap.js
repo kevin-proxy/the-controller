@@ -14,7 +14,7 @@ module.exports = class clapCommand extends (
   }
 
   async run(message, args) {
-    if (!args[1])
+    if (!args[2])
       return message.reply("You have to give me two words to clap silly");
     let say = message.content.split(" ");
     say.shift();
