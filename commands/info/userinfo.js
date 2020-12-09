@@ -22,7 +22,7 @@ module.exports = class userInfoCommand extends (
     if (member == null) {
       member = message.guild.member(message.author);
     }
-    const userInfoEmbed = new MessageEmbed()
+    const embed = new MessageEmbed()
       .setTitle(targetUser.username)
       .setDescription(
         `**Tag:** ${targetUser.tag}\n**ID:** ${
@@ -50,6 +50,6 @@ module.exports = class userInfoCommand extends (
       .setFooter(`Requested by ${message.author.username}`)
       .setTimestamp();
 
-    message.channel.send(userInfoEmbed);
+    message.channel.send(embed);
   }
 };

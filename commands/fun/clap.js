@@ -16,7 +16,6 @@ module.exports = class clapCommand extends (
   async run(message, args) {
     if (!args[2])
       return message.reply("You have to give me two words to clap silly");
-    args.join(" 👏 ");
-    message.channel.send(args);
+    message.channel.send(args.split(" ").join(" 👏 "));
   }
 };

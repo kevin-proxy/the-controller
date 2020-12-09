@@ -13,9 +13,10 @@ module.exports = class coinFlip extends (
     });
   }
   async run(message, args) {
+    const tails = this.client.emojis.cache.find((e) => e.name === "tails")
     const { emojis } = require("./../../index");
     function doRandHT() {
-      var rand = [`You got heads! ${emojis.heads}`, `You got tails! ${emojis.tails}`];
+      var rand = [`You got heads! ${emojis.heads}`, `You got tails! ${tails}`];
       return rand[Math.floor(Math.random() * rand.length)];
     }
 

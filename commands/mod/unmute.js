@@ -1,14 +1,17 @@
 const Discord = require("discord.js");
-const Commando = require("discord.js-commando")
-module.exports = class unmuteCommand extends Commando.Command{
+const Commando = require("discord.js-commando");
+module.exports = class unmuteCommand extends (
+  Commando.Command
+) {
   constructor(client) {
     super(client, {
       name: "unmute",
       group: "mod",
       memberName: "unmute",
       description: "Unmutes members",
+      userPermissions: ["MUTE_MEMBERS"],
       guildOnly: true,
-    })
+    });
   }
   async run(message, args) {
     const targetUser = message.mentions.users.first();
@@ -20,7 +23,7 @@ module.exports = class unmuteCommand extends Commando.Command{
     if (!message.member.hasPermission("MUTE_MEMBERS")) {
       const permissionEmbed = new Discord.MessageEmbed();
       permissionEmbed.setDescription(
-        `${disapprovedEmoji} You do not have permission to unmute members!`
+        `${emojis.cross} You do not have permission to unmute members!`
       );
       permissionEmbed.setColor(0x3366ff);
       message.channel.send(permissionEmbed).then((msg) =>
@@ -57,7 +60,7 @@ module.exports = class unmuteCommand extends Commando.Command{
           muteLogEmbed.setTimestamp();
           const muteSuccess = new Discord.MessageEmbed();
           muteSuccess.setDescription(
-            `${approvedEmoji} Successfully unmuted ${targetUser}
+            `${emojis.check} Successfully unmuted ${targetUser}
             )}`
           );
           muteSuccess.setColor(0x3366ff);
@@ -89,7 +92,7 @@ module.exports = class unmuteCommand extends Commando.Command{
         } else {
           const alreadyMutedEmbed = new Discord.MessageEmbed();
           alreadyMutedEmbed.setDescription(
-            `${disapprovedEmoji} That user is not muted!`
+            `${emojis.cross} That user is not muted!`
           );
           alreadyMutedEmbed.setColor(0x3366ff);
           message.channel.send(alreadyMutedEmbed).then((msg) =>
@@ -101,7 +104,7 @@ module.exports = class unmuteCommand extends Commando.Command{
       } else {
         const noMentionEmbed = new Discord.MessageEmbed();
         noMentionEmbed.setDescription(
-          `${disapprovedEmoji} Please mention a user to unmute!`
+          `${emojis.cross} Please mention a user to unmute!`
         );
         noMentionEmbed.setColor(0x3366ff);
         message.channel.send(noMentionEmbed).then((msg) =>
@@ -112,4 +115,4 @@ module.exports = class unmuteCommand extends Commando.Command{
       }
     }
   }
-}
+};

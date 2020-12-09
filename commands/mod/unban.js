@@ -18,7 +18,7 @@ module.exports = class unbanCommand extends (
     if (!message.member.hasPermission("BAN_MEMBERS")) {
       const noPermissionEmbed = new Discord.MessageEmbed();
       noPermissionEmbed.setDescription(
-        `${disapprovedEmoji} You do not have permission to unban members!`
+        `${emojis.cross} You do not have permission to unban members!`
       );
       noPermissionEmbed.setColor(0x3366ff);
       return message.channel.send(noPermissionEmbed).then((msg) =>
@@ -43,7 +43,7 @@ module.exports = class unbanCommand extends (
             .then(() => {
               const successEmbed = new Discord.MessageEmbed();
               successEmbed.setDescription(
-                `${approvedEmoji} Successfully unbanned ${userID}`
+                `${emojis.check} Successfully unbanned ${userID}`
               );
               successEmbed.setColor(0x3366ff);
               message.channel.send(successEmbed);
@@ -85,7 +85,7 @@ module.exports = class unbanCommand extends (
       } else {
         const noIdEmbed = new Discord.MessageEmbed();
         noIdEmbed.setDescription(
-          `${disapprovedEmoji} Please provide the ID of a banned user to unban!`
+          `${emojis.cross} Please provide the ID of a banned user to unban!`
         );
         noIdEmbed.setColor(0x3366ff);
         message.channel.send(noIdEmbed);

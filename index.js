@@ -1,11 +1,8 @@
 require("module-alias/register");
 require("dotenv").config();
 
-const path = require("path");
 const Commando = require("discord.js-commando");
 const MongoDBProvider = require("commando-provider-mongo");
-const { MongoClient } = require("mongodb");
-const loadFeatures = require("./feature-files/load-features");
 
 const client = new Commando.CommandoClient({
   owner: "381906626581626880",
@@ -13,7 +10,7 @@ const client = new Commando.CommandoClient({
 });
 
 client.setProvider(
-  MongoClient.connect(process.env.MONGO_PATH, {
+  require("mongodb").MongoClient.connect(process.env.MONGO_PATH, {
     useUnifiedTopology: true,
     useFindAndModify: false,
   })
@@ -25,14 +22,15 @@ client.setProvider(
     })
 );
 
-module.exports = (emojis) => {
-  emojis = {
+
+module.exports.emojis = () => {
+  const emojis = {
     crossEmoji: client.emojis.cache.find((e) => e.name === "cross"),
     checkEmoji: client.emojis.cache.find((e) => e.name === "check"),
     tails: client.emojis.cache.find((e) => e.name === "tails"),
     heads: client.emojis.cache.find((e) => e.name === "heads"),
   }
-};
+}
 
 client.on("ready", () => {
   console.log(`The client is ready`);
@@ -47,9 +45,8 @@ client.on("ready", () => {
       ["info", "Informative"],
       ["fun", "Fun"],
     ])
-    .registerDefaults()
-    .registerCommandsIn(path.join(__dirname, "commands"));
-  loadFeatures(client);
+    .registerCommandsIn(require("path").join(__dirname, "commands"));
+  require("./feature-files/load-features")(client);
 });
 
 client.login(process.env.BOT_TOKEN);

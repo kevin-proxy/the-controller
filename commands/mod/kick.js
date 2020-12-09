@@ -16,8 +16,7 @@ module.exports = class kickCommand extends (
     const targetUser = message.mentions.users.first();
     let reason = args.slice(1).join(` `);
     const member = message.guild.member(targetUser);
-    const { approvedEmoji } = require("@util/emojis");
-    const { disapprovedEmoji } = require("@util/emojis");
+    const emojis = require("./../../index");
 
     if (!member) {
       const noMemberEmbed = new Discord.MessageEmbed();
@@ -28,7 +27,7 @@ module.exports = class kickCommand extends (
     if (member.roles.cache.has("749421428339638332")) {
       const isStaffEmbed = new Discord.MessageEmbed();
       isStaffEmbed.setDescription(
-        `${disapprovedEmoji} You cannot kick a member of staff!`
+        `${emojis.cross} You cannot kick a member of staff!`
       );
       isStaffEmbed.setColor(0x3366ff);
       return message.channel.send(isStaffEmbed);
@@ -41,7 +40,7 @@ module.exports = class kickCommand extends (
     });
     const successEmbed = new Discord.MessageEmbed();
     successEmbed.setDescription(
-      `${approvedEmoji} Successfully kicked ${targetUser}`
+      `${emojis.check} Successfully kicked ${targetUser}`
     );
     successEmbed.setColor(0x3366ff);
     message.channel

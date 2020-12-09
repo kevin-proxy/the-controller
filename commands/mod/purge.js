@@ -15,7 +15,7 @@ module.exports = class purgeCommand extends (
   async run(message, args) {
     if (isNaN(args[0])) {
       const purgeNaNEmbed = new Discord.MessageEmbed();
-      purgeNaNEmbed.setDescription(`${disapprovedEmoji} That is not a number!`);
+      purgeNaNEmbed.setDescription(`${emojis.cross} That is not a number!`);
       purgeNaNEmbed.setColor(0x3366ff);
 
       return message.reply(purgeNaNEmbed).then((msg) =>
@@ -26,7 +26,7 @@ module.exports = class purgeCommand extends (
     } else if (args[0] < 2 || args[0] > 99) {
       const purgeBetweenEmbed = new Discord.MessageEmbed();
       purgeBetweenEmbed.setDescription(
-        `${disapprovedEmoji} Please provide a number between or equal to 2 and 99!`
+        `${emojis.cross} Please provide a number between or equal to 2 and 99!`
       );
       purgeBetweenEmbed.setColor(0x3366ff);
 
@@ -54,7 +54,7 @@ module.exports = class purgeCommand extends (
           .then(() => {
             const purgeSuccessEmbed = new Discord.MessageEmbed();
             purgeSuccessEmbed.setDescription(
-              `${approvedEmoji} Successfully purged ${fetchedMessages.size} messages!`
+              `${emojis.check} Successfully purged ${fetchedMessages.size} messages!`
             );
             purgeSuccessEmbed.setColor(0x3366ff);
 

@@ -14,7 +14,7 @@ module.exports = class githubCommand extends (
   }
   async run(message, args) {
     message.channel.send(
-      "To view the GitHub repository for this bot, go to https://github.com/kevin-proxy/the-controller"
+      "**To view the GitHub repository for this bot, go to**\n\nhttps://github.com/kevin-proxy/the-controller"
     );
   }
 };

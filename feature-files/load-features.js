@@ -10,7 +10,6 @@ module.exports = (client) => {
         readFeatures(path.join(dir, file));
       } else if (file !== "load-features.js") {
         const feature = require(path.join(__dirname, dir, file));
-        console.log(`Enabling feature "${file}"`);
         feature(client);
       }
     }
